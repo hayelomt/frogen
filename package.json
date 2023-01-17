@@ -1,0 +1,39 @@
+{
+  "name": "node-express-typescript",
+  "version": "1.0.0",
+  "description": "Node.js setup with Express and TypeScript",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rimraf dist && tsc",
+    "preserve": "npm run build",
+    "dev": "cross-env NODE_ENV=development concurrently \"tsc --watch\" \"nodemon -q dist/index.js\"",
+    "prestart": "npm run build",
+    "start": "cross-env NODE_ENV=production node dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ultimatecourses/node-express-typescript.git"
+  },
+  "author": "ultimatecourses",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ultimatecourses/node-express-typescript/issues"
+  },
+  "homepage": "https://github.com/ultimatecourses/node-express-typescript#readme",
+  "dependencies": {
+    "@types/node": "^14.14.22",
+    "camelcase": "^7.0.1",
+    "colors": "^1.4.0",
+    "cross-env": "^7.0.3",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.9.4"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.48.2",
+    "@typescript-eslint/parser": "^5.48.2",
+    "concurrently": "^5.3.0",
+    "eslint": "^8.32.0",
+    "nodemon": "^2.0.20"
+  }
+}
