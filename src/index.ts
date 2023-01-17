@@ -3,7 +3,7 @@ import { FormMeta } from './utils/types';
 import 'colors';
 
 const meta: FormMeta = {
-  model: 'TeamMember',
+  model: 'team-member',
   ui: {
     parentFolder: 'academic/marklist',
     baseFolderPath:
@@ -27,6 +27,26 @@ const meta: FormMeta = {
         type: 'varchar',
         label: 'Email',
         fieldName: 'email',
+      },
+    ],
+    [
+      {
+        type: 'varchar',
+        label: 'Address',
+        fieldName: 'address',
+        optional: true,
+      },
+      {
+        type: 'number',
+        label: 'Height',
+        fieldName: 'height',
+      },
+    ],
+    [
+      {
+        type: 'File',
+        label: 'Image',
+        fieldName: 'image',
       },
     ],
   ],

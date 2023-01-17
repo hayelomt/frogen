@@ -1,18 +1,25 @@
 import path from 'path';
+import { generateModelFile } from '../generators/file/modelGen';
+import { generateServiceFile } from '../generators/file/serviceGen';
 import { generateUiFolders } from '../generators/folder/uiFolderGen';
-import { groupForm } from '../generators/layout/groupper';
+import { parseModelName } from '../utils/text';
 import { FormMeta } from '../utils/types';
 
 export const generateUi = (meta: FormMeta) => {
   // TODO: Add existing file check
+  const parsedName = parseModelName(meta.model);
 
   const baseFolder = path.join(
     meta.ui.baseFolderPath,
     'src',
     'features',
     meta.ui.parentFolder || '',
-    meta.model.toLowerCase()
+    parsedName.folderName
   );
+
   generateUiFolders(baseFolder);
-  // console.log(groupForm(meta));
+
+  generateModelFile(baseFolder, meta);
+
+  generateServiceFile(baseFolder, meta);
 };
