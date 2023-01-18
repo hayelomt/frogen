@@ -19,14 +19,14 @@ const ${name.modelName}Page = () => {
     <>
       <Layout>
         <Group p="md" mb="lg" position="apart">
-          <Text size="xl">${name.modelName}s</Text>
+          <Text size="xl">${name.label}s</Text>
           
           <Button
             variant="subtle"
             leftIcon={<IconPlus size={15} />}
             onClick={() => setFormOpen(true)}
           >
-            Add ${name.modelName}
+            Add ${name.label}
           </Button>
         </Group>
 

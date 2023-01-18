@@ -34,7 +34,7 @@ const meta: FormMeta = {
     ],
     [
       {
-        type: 'varchar',
+        type: 'text',
         label: 'Email',
         fieldName: 'email',
       },
@@ -50,15 +50,36 @@ const meta: FormMeta = {
         type: 'number',
         label: 'Height',
         fieldName: 'height',
+        nonEditable: true,
       },
     ],
     [
       {
-        type: 'File',
-        label: 'Image',
-        fieldName: 'image',
+        type: 'bool',
+        label: 'Accept terms and conditions',
+        fieldName: 'term_accepted',
+        nonEditable: true,
       },
     ],
+    [
+      {
+        type: 'dropdown',
+        label: 'Select Machine',
+        fieldName: 'machine',
+        nonEditable: true,
+        selectOptions: [
+          { label: 'Cont', value: 'construction' },
+          { label: 'Machine', value: 'heavy_machine' },
+        ],
+      },
+    ],
+    // [
+    //   {
+    //     type: 'File',
+    //     label: 'Image',
+    //     fieldName: 'image',
+    //   },
+    // ],
   ],
 };
 

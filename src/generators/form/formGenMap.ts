@@ -1,15 +1,18 @@
-import { FieldType } from '../../utils/types';
+import { DropdownMeta, FieldType, FormMetaField } from '../../utils/types';
+import { genBoolForm } from './bool';
+import { genDropdownForm } from './dropdown';
+import { genNumberForm } from './number';
 import { genTextForm } from './text';
+import { genTextAreaForm } from './textarea';
 
-export type FieldGenerator = {
-  label: string;
-  field: string;
-};
-
-export const formMap: Record<FieldType, (_: FieldGenerator) => string> = {
+export const formMap: Record<
+  FieldType,
+  (_: FormMetaField | DropdownMeta) => string
+> = {
   varchar: genTextForm,
-  number: genTextForm,
+  number: genNumberForm,
+  text: genTextAreaForm,
   File: genTextForm,
-  text: genTextForm,
-  bool: genTextForm,
+  bool: genBoolForm,
+  dropdown: genDropdownForm,
 };

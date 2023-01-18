@@ -1,6 +1,6 @@
 import { FormMetaField } from '../../utils/types';
 
-export const genTextForm = ({
+export const genNumberForm = ({
   fieldName,
   label,
   optional,
@@ -12,6 +12,7 @@ export const genTextForm = ({
   }
               placeholder="${label}"
               label="${label}"
+              type="number"
               {...form.getInputProps('${fieldName}')}
             />`;
 };

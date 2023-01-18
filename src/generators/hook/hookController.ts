@@ -19,6 +19,7 @@ export const generateHook = (curDir: string, meta: FormMeta): string => {
 
   return `import { useForm } from '@mantine/form';
 import { useState } from 'react';
+import { FormModes } from '${corePrefix}core/util/types';
 import { ${names.modelName}, ${names.modelName}Dto } from '../models/${
     names.camelName
   }';
@@ -35,12 +36,16 @@ import {useToken} from '${featurePrefix}/auth/lib/hooks/useToken';`
       : ''
   }
 
-export const use${names.modelName}FormController = () => { 
+export const use${names.modelName}FormController = (instance?: ${
+    names.modelName
+  }) => 
+{ 
+  const mode = !instance ? 'create' : 'edit';
   const token = useToken();
   const [loading, setLoading] = useState(false);
 ${formContent}
 ${createContent}
-  return { form, loading${canCreate ? `, create${names.modelName}` : ''} }
+  return { form, mode, loading${canCreate ? `, create${names.modelName}` : ''} }
 };
   `;
 };

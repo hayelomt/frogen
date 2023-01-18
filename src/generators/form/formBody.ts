@@ -29,10 +29,7 @@ export const generateFormBody = (meta: FormMeta): string => {
   const groupedInputs = meta.fields
     .map((inputItems) => {
       const inputFields = inputItems.map((formField) =>
-        formMap[formField.type]({
-          label: formField.label,
-          field: formField.fieldName,
-        })
+        formMap[formField.type](formField)
       );
       return groupInputRows(inputFields);
     })

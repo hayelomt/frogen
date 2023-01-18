@@ -1,12 +1,29 @@
-export type FieldType = 'varchar' | 'text' | 'number' | 'File' | 'bool';
+export type FieldType =
+  | 'varchar'
+  | 'text'
+  | 'number'
+  | 'File'
+  | 'bool'
+  | 'dropdown';
 
-export type FormMetaField = {
-  type: FieldType;
+export type DropdownMeta = {
+  type: 'dropdown';
   fieldName: string;
   label: string;
   optional?: boolean;
-  editable?: boolean;
+  nonEditable?: boolean;
+  selectOptions: { label: string; value: string }[];
 };
+
+export type FormMetaField =
+  | {
+      type: FieldType;
+      fieldName: string;
+      label: string;
+      optional?: boolean;
+      nonEditable?: boolean;
+    }
+  | DropdownMeta;
 
 export type FormMeta = {
   model: string;

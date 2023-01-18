@@ -35,5 +35,5 @@ export const generateUi = (meta: FormMeta) => {
 
   generatePageFile(baseFolder, meta);
 
-  generateImports(meta);
+  // generateImports(meta);
 };
