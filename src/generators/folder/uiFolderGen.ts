@@ -9,7 +9,6 @@ export const generateUiFolders = (baseDir: string) => {
 
   const folders = [
     'components',
-    'containers',
     'lib',
     'lib/hooks',
     'lib/states',

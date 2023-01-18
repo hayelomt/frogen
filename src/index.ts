@@ -7,10 +7,10 @@ const meta: FormMeta = {
   ui: {
     modes: {
       create: true,
-      delete: false,
-      update: false,
+      delete: true,
+      update: true,
     },
-    parentFolder: 'academic/marklist',
+    parentFolder: '',
     baseFolderPath:
       '/media/ht/OS/Users/DeLL/Documents/Projects/mad/pragma/prgama-admin',
   },
