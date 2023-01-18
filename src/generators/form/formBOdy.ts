@@ -1,5 +1,6 @@
-import { formMap } from '../form/formGenMap';
+import { formMap } from './formGenMap';
 import { FormMeta } from '../../utils/types';
+import { parseModelName } from '../../utils/text';
 
 const GRIDS = 12;
 
@@ -23,7 +24,8 @@ export const groupInputRows = (rowItems: string[]): string => {
         `;
 };
 
-export const groupForm = (meta: FormMeta): string => {
+export const generateFormBody = (meta: FormMeta): string => {
+  const name = parseModelName(meta.model);
   const groupedInputs = meta.fields
     .map((inputItems) => {
       const inputFields = inputItems.map((formField) =>
@@ -37,8 +39,23 @@ export const groupForm = (meta: FormMeta): string => {
     .join('\n');
 
   return `
-      <form onSubmit={form.onSubmit(createGrade)}>
+      <form onSubmit={form.onSubmit(create${name.modelName})}>
         ${groupedInputs}
+
+        <Group position="right" mt="xl">
+          <Button type="submit" loading={loading} disabled={loading}>
+            Create
+          </Button>
+
+          <Button
+            type="button"
+            color="gray"
+            onClick={onClose}
+            disabled={loading}
+          >
+            Cancel
+          </Button>
+        </Group>
       </form>
    `;
 };

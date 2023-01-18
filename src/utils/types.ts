@@ -12,8 +12,18 @@ export type FormMeta = {
   model: string;
   fields: FormMetaField[][];
   ui: {
+    modes: {
+      create: boolean;
+      update: boolean;
+      delete: boolean;
+    };
     baseFolderPath: string;
     parentFolder?: string;
+  };
+  api: {
+    endpoints: {
+      create?: string;
+    };
   };
 };
 

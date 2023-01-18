@@ -8,4 +8,8 @@ export type FieldGenerator = {
 
 export const formMap: Record<FieldType, (_: FieldGenerator) => string> = {
   varchar: genTextForm,
+  number: genTextForm,
+  File: genTextForm,
+  text: genTextForm,
+  bool: genTextForm,
 };

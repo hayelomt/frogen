@@ -1,4 +1,5 @@
 import path from 'path';
+import { generateFormFile } from '../generators/file/formFileGen';
 import { generateHookFile } from '../generators/file/hookGen';
 import { generateModelFile } from '../generators/file/modelGen';
 import { generateServiceFile } from '../generators/file/serviceGen';
@@ -25,4 +26,8 @@ export const generateUi = (meta: FormMeta) => {
   generateServiceFile(baseFolder, meta);
 
   generateHookFile(baseFolder, meta);
+
+  if (meta.ui.modes.create || meta.ui.modes.update) {
+    generateFormFile(baseFolder, meta);
+  }
 };

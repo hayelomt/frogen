@@ -5,9 +5,19 @@ import 'colors';
 const meta: FormMeta = {
   model: 'team-member',
   ui: {
+    modes: {
+      create: true,
+      delete: false,
+      update: false,
+    },
     parentFolder: 'academic/marklist',
     baseFolderPath:
       '/media/ht/OS/Users/DeLL/Documents/Projects/mad/pragma/prgama-admin',
+  },
+  api: {
+    endpoints: {
+      create: 'team-members',
+    },
   },
   fields: [
     [
