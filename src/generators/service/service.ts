@@ -1,38 +1,32 @@
 import { parseModelName } from '../../utils/text';
-import { FieldType, FormMeta } from '../../utils/types';
+import { getCorePrefix } from '../../utils/tools';
+import { FormMeta } from '../../utils/types';
+import { getInitializer } from './initializer';
+import { getRules } from './rules';
 
-const getInitializer = (field: FieldType) => {
-  if (field === 'number') return '0';
-  if (field === 'File') return `null`;
-  if (field === 'bool') return 'false';
-
-  return `''`;
-};
-
-export const generateService = (meta: FormMeta): string => {
+export const generateService = (curDir: string, meta: FormMeta): string => {
   const name = parseModelName(meta.model);
-  const spaces = '      ';
+  const initializer = getInitializer(meta);
+  const rules = getRules(meta);
+  const corePrefix = getCorePrefix(curDir, meta.ui.baseFolderPath);
 
-  const initializer = meta.fields
-    .map((values) =>
-      values
-        .map(
-          (field) =>
-            `${spaces}${field.fieldName}: ${name.camelName}?.${
-              field.fieldName
-            } || ${getInitializer(field.type)},`
-        )
-        .join('\n')
-    )
-    .join('\n');
-
-  return `
+  return `import { FormValidateInput } from '@mantine/form/lib/types';
 import { ${name.modelName}, ${name.modelName}Dto } from '../models/${name.camelName}';
+import {
+  validateRules,
+  Validator,
+} from '${corePrefix}core/services/validation';
 
 const ${name.modelName}Service = {
   initialize: (${name.camelName}?: ${name.modelName}): ${name.modelName}Dto => {
     return {
 ${initializer}
+    }
+  },
+
+  validation: (): FormValidateInput<${name.modelName}Dto | undefined> => {
+    return {
+${rules}
     }
   }
 };
