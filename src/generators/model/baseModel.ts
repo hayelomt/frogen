@@ -2,14 +2,17 @@ import { parseModelName } from '../../utils/text';
 import { FormMeta, FormMetaField, ModelFieldType } from '../../utils/types';
 
 const parseModelFieldType = ({ type }: FormMetaField): ModelFieldType => {
-  if (type === 'varchar' || type === 'text') {
-    return 'string';
-  }
   if (type === 'number') {
     return 'number';
   }
   if (type === 'File') {
     return 'File | null';
+  }
+  if (type === 'bool') {
+    return 'boolean';
+  }
+  if (type === 'date') {
+    return 'Date | null';
   }
 
   return 'string';

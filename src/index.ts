@@ -63,6 +63,14 @@ const meta: FormMeta = {
     ],
     [
       {
+        type: 'date',
+        label: 'Birth Date',
+        fieldName: 'birth_date',
+        nonEditable: true,
+      },
+    ],
+    [
+      {
         type: 'dropdown',
         label: 'Select Machine',
         fieldName: 'machine',
@@ -73,13 +81,21 @@ const meta: FormMeta = {
         ],
       },
     ],
-    // [
-    //   {
-    //     type: 'File',
-    //     label: 'Image',
-    //     fieldName: 'image',
-    //   },
-    // ],
+    [
+      {
+        type: 'File',
+        label: 'Image',
+        fieldName: 'image',
+        fileType: 'image',
+      },
+    ],
+    [
+      {
+        type: 'File',
+        label: 'CV',
+        fieldName: 'cv',
+      },
+    ],
   ],
 };
 

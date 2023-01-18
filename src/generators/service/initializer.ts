@@ -5,6 +5,7 @@ const getFieldInitializer = (field: FieldType) => {
   if (field === 'number') return '0';
   if (field === 'File') return `null`;
   if (field === 'bool') return 'false';
+  if (field === 'date') return 'null';
 
   return `''`;
 };

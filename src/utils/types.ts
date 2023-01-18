@@ -4,7 +4,8 @@ export type FieldType =
   | 'number'
   | 'File'
   | 'bool'
-  | 'dropdown';
+  | 'dropdown'
+  | 'date';
 
 export type DropdownMeta = {
   type: 'dropdown';
@@ -13,6 +14,7 @@ export type DropdownMeta = {
   optional?: boolean;
   nonEditable?: boolean;
   selectOptions: { label: string; value: string }[];
+  fileType?: 'image' | 'file';
 };
 
 export type FormMetaField =
@@ -22,6 +24,7 @@ export type FormMetaField =
       label: string;
       optional?: boolean;
       nonEditable?: boolean;
+      fileType?: 'image' | 'file';
     }
   | DropdownMeta;
 
@@ -50,4 +53,6 @@ export type ModelFieldType =
   | 'File'
   | 'number | null'
   | 'string | null'
-  | 'File | null';
+  | 'File | null'
+  | 'boolean'
+  | 'Date | null';

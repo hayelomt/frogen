@@ -18,7 +18,7 @@ export const groupInputRows = (rowItems: string[]): string => {
     .join('\n');
 
   return `
-        <Grid>
+        <Grid mx={0}>
           ${inputsMapped}
         </Grid>
         `;
@@ -39,7 +39,7 @@ export const generateFormBody = (meta: FormMeta): string => {
       <form onSubmit={form.onSubmit(create${name.modelName})}>
         ${groupedInputs}
 
-        <Group position="right" mt="xl">
+        <Group position="right" mt="xl" pr="xs">
           <Button type="submit" loading={loading} disabled={loading}>
             Create
           </Button>

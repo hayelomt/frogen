@@ -7,7 +7,7 @@ const getValidationRules = (field: FormMetaField): string => {
     rules.push(`Validator.isString('${field.fieldName}', val)`);
   }
   if (field.type === 'number') {
-    rules.push(`Validator.isNumber('${field.fieldName}', val)`);
+    // rules.push(`Validator.isNumber('${field.fieldName}', val)`);
   }
 
   if (!field.optional) {
