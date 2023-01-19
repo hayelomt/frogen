@@ -16,12 +16,12 @@ import ${name.modelName}Page from '../../features/${
   console.log('Routers'.blue.bold);
   const routers = `
           <Route
-            path="/${
-              meta.ui.parentFolder ? `${meta.ui.parentFolder}/` : ''
-            }team-member"
+            path="/${meta.ui.parentFolder ? `${meta.ui.parentFolder}/` : ''}${
+    meta.model
+  }"
             element={
               <PrivateRoute>
-                <TeamMemberPage />
+                <${name.modelName}Page />
               </PrivateRoute>
             }
           />

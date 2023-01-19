@@ -1,6 +1,7 @@
 import { formMap } from './formGenMap';
 import { FormMeta } from '../../utils/types';
 import { parseModelName } from '../../utils/text';
+import { parseTypeList } from '../../utils/tools';
 
 const GRIDS = 12;
 
@@ -34,9 +35,13 @@ export const generateFormBody = (meta: FormMeta): string => {
       return groupInputRows(inputFields);
     })
     .join('\n');
+  const typeList = parseTypeList(meta);
+  const progressIndicator = typeList.has('File')
+    ? `{loading ? <Progress value={progress} /> : <Box h="8px"></Box>}`
+    : '';
 
   return `
-      <form onSubmit={form.onSubmit(create${name.modelName})}>
+      <form onSubmit={form.onSubmit(create${name.modelName})}>${progressIndicator}
         ${groupedInputs}
 
         <Group position="right" mt="xl" pr="xs">

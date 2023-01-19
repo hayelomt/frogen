@@ -1,13 +1,7 @@
 import { parseModelName } from '../../utils/text';
+import { parseTypeList } from '../../utils/tools';
 import { FormMeta } from '../../utils/types';
 import { generateFormBody } from './formBody';
-
-const parseTypeList = (meta: FormMeta) =>
-  new Set(
-    meta.fields
-      .map((row) => row.map((i) => i.type))
-      .reduce((a, b) => a.concat(b), [])
-  );
 
 const getImports = (meta: FormMeta) => {
   const imports: string[] = [];
@@ -27,6 +21,8 @@ const getImports = (meta: FormMeta) => {
   }
   if (typeList.has('File')) {
     imports.push('FileInput');
+    imports.push('Progress');
+    imports.push('Box');
   }
 
   return imports.join(', ');
@@ -52,6 +48,7 @@ export const generateForm = (meta: FormMeta) => {
   const name = parseModelName(meta.model);
   const formBody = generateFormBody(meta);
   const importList = getImports(meta);
+  const typeList = parseTypeList(meta);
 
   return `import { Button, Grid, Group, ${importList} } from '@mantine/core';${getDateImport(
     meta
@@ -65,9 +62,9 @@ type ${name.modelName}FormProps = {
 };
 
 const ${name.modelName}Form = ({ onClose }: ${name.modelName}FormProps) => {
-  const { form, mode, create${name.modelName}, loading } = use${
-    name.modelName
-  }FormController();
+  const { form, mode, create${name.modelName}, loading${
+    typeList.has('File') ? ', progress' : ''
+  } } = use${name.modelName}FormController();
 
   return (
     <>

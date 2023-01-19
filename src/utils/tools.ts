@@ -1,4 +1,5 @@
 import path from 'path';
+import { FormMeta } from './types';
 
 const getTokenCount = (curDir: string, baseUiDir: string): number =>
   curDir
@@ -21,3 +22,10 @@ export const getFeaturePrefix = (curDir: string, baseUiDir: string): string => {
     .map((_) => '../')
     .join('');
 };
+
+export const parseTypeList = (meta: FormMeta) =>
+  new Set(
+    meta.fields
+      .map((row) => row.map((i) => i.type))
+      .reduce((a, b) => a.concat(b), [])
+  );

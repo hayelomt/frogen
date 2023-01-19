@@ -15,6 +15,7 @@ export const genFileForm = ({
     fileType === 'image' ? '\naccept="image/png,image/jpeg"' : ''
   }
               label="${label}"
+               icon={<IconUpload size={14} />}
               {...form.getInputProps('${fieldName}')}
             />
             ${

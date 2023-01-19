@@ -1,26 +1,56 @@
 import { parseModelName } from '../../utils/text';
 import { FormMeta } from '../../utils/types';
 
-export const generateCreator = (meta: FormMeta): string => {
+export const generateFormDataCreator = (meta: FormMeta): string => {
   const name = parseModelName(meta.model);
 
   return `
   const create${name.modelName} = async (payload: ${name.modelName}Dto) => {
-    setLoading(true);
-    const { data, error, mode } = await postApiData('${meta.api.endpoints.create}', payload, {
-      validationHandler: (errors) =>
-        ErrorParseService.parseValidation(errors, form.setFieldError),
-      token,
-    });
-    setLoading(false);
+    const parsedPayload = FormParser.init(payload).data;
+    const formData = FormService.parseFormData(parsedPayload);
+    const { data, error, mode } = await upload<${name.modelName}>(
+      '${meta.api.endpoints.create}',
+      {
+        payload: formData,
+        errorSetter: form.setFieldError,
+      }
+    );
     if (mode === 'error') {
-      toastError({ title: 'Login error', message: error.msg });
+      if (error.status !== 400) {
+        toastError({ title: 'Form error', message: error.msg });
+      }
       return;
     }
 
     form.reset();
-    toastSuccess({ title: 'Team Member added' });
+    toastSuccess({ title: '${name.label} added' });
   };
-  
+  `;
+};
+
+export const generateDataCreator = (meta: FormMeta): string => {
+  const name = parseModelName(meta.model);
+
+  return `
+  const create${name.modelName} = async (payload: ${name.modelName}Dto) => {
+    const parsedPayload = FormParser.init(payload).data;
+    const formData = FormService.parseFormData(parsedPayload);
+    const { data, error, mode } = await upload<${name.modelName}>(
+      '${meta.api.endpoints.create}',
+      {
+        payload: formData,
+        errorSetter: form.setFieldError,
+      }
+    );
+    if (mode === 'error') {
+      if (error.status !== 400) {
+        toastError({ title: 'Form error', message: error.msg });
+      }
+      return;
+    }
+
+    form.reset();
+    toastSuccess({ title: '${name.label} added' });
+  };
   `;
 };
