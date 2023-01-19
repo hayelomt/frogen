@@ -34,11 +34,10 @@ export const generateDataCreator = (meta: FormMeta): string => {
   return `
   const create${name.modelName} = async (payload: ${name.modelName}Dto) => {
     const parsedPayload = FormParser.init(payload).data;
-    const formData = FormService.parseFormData(parsedPayload);
-    const { data, error, mode } = await upload<${name.modelName}>(
+    const { data, error, mode } = await sendData<${name.modelName}>(
       '${meta.api.endpoints.create}',
       {
-        payload: formData,
+        payload: parsedPayload,
         errorSetter: form.setFieldError,
       }
     );

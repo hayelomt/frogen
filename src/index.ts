@@ -3,7 +3,7 @@ import { FormMeta } from './utils/types';
 import 'colors';
 
 const meta: FormMeta = {
-  model: 'link',
+  model: 'project',
   ui: {
     modes: {
       create: true,
@@ -16,7 +16,7 @@ const meta: FormMeta = {
   },
   api: {
     endpoints: {
-      create: 'auth-pragma23/links',
+      create: 'auth-pragma23/projects',
     },
   },
   fields: [
@@ -84,18 +84,32 @@ const meta: FormMeta = {
     [
       {
         type: 'varchar',
-        label: 'Link',
-        fieldName: 'link',
+        label: 'Title',
+        fieldName: 'title',
       },
     ],
     [
       {
-        type: 'File',
-        label: 'Image',
-        fieldName: 'image',
-        fileType: 'image',
+        type: 'varchar',
+        label: 'Highlight',
+        fieldName: 'highlight_figure',
       },
     ],
+    [
+      {
+        type: 'text',
+        label: 'Description',
+        fieldName: 'description',
+      },
+    ],
+    // [
+    //   {
+    //     type: 'File',
+    //     label: 'Image',
+    //     fieldName: 'image',
+    //     fileType: 'image',
+    //   },
+    // ],
     // [
     //   {
     //     type: 'File',

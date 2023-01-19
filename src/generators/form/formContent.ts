@@ -50,7 +50,7 @@ export const generateForm = (meta: FormMeta) => {
   const importList = getImports(meta);
   const typeList = parseTypeList(meta);
 
-  return `import { Button, Grid, Group, ${importList} } from '@mantine/core';${getDateImport(
+  return `import { Button, Grid, Drawer, Group, ${importList} } from '@mantine/core';${getDateImport(
     meta
   )}${getFileIconImport(meta)}
 import { use${name.modelName}FormController } from '../lib/hooks/use${
@@ -58,10 +58,13 @@ import { use${name.modelName}FormController } from '../lib/hooks/use${
   }FormController';
 
 type ${name.modelName}FormProps = {
+  formOpen: boolean;
   onClose: () => void;
 };
 
-const ${name.modelName}Form = ({ onClose }: ${name.modelName}FormProps) => {
+const ${name.modelName}Form = ({ formOpen, onClose }: ${
+    name.modelName
+  }FormProps) => {
   const { form, mode, create${name.modelName}, loading${
     typeList.has('File') ? ', progress' : ''
   } } = use${name.modelName}FormController();

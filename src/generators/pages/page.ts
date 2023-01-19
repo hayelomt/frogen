@@ -6,7 +6,7 @@ export const generatePage = (curDir: string, meta: FormMeta): string => {
   const corePrefix = getCorePrefix(curDir, meta.ui.baseFolderPath);
   const name = parseModelName(meta.model);
 
-  return `import { Button, Drawer, Group, Text } from '@mantine/core';
+  return `import { Button, Group, Text } from '@mantine/core';
 import { IconPlus } from '@tabler/icons';
 import { useState } from 'react';
 import Layout from '${corePrefix}core/ui/layout/Layout';
@@ -30,16 +30,7 @@ const ${name.modelName}Page = () => {
           </Button>
         </Group>
 
-        <Drawer
-          opened={formOpen}
-          onClose={() => setFormOpen(false)}
-          title=""
-          padding="xl"
-          size="lg"
-          position="right"
-        >
-          <${name.modelName}Form onClose={() => setFormOpen(false)} />
-        </Drawer>
+        <${name.modelName}Form onClose={() => setFormOpen(false)} formOpen={formOpen} />
       </Layout>
     </>
   );

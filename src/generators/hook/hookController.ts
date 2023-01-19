@@ -31,7 +31,7 @@ ${
   canCreate
     ? typeList.has('File')
       ? `import { useFormDataApi } from '${corePrefix}core/hooks/api/useFormDataApi';`
-      : 'import {};'
+      : `import { useDataApi } from '${corePrefix}core/hooks/api/useDataApi';`
     : ''
 }
 ${
@@ -40,7 +40,9 @@ ${
     : ''
 }${
     canCreate || canUpdate
-      ? `import FormService, { FormParser } from '${corePrefix}core/services/formService';`
+      ? `import ${
+          typeList.has('File') ? 'FormService, ' : ''
+        }{ FormParser } from '${corePrefix}core/services/formService';`
       : ''
   }
 
@@ -49,10 +51,14 @@ export const use${names.modelName}FormController = (instance?: ${
   }) => 
 { 
   const mode: FormModes = !instance ? 'create' : 'edit';
-  const { upload, loading, progress } = useFormDataApi();
+  ${
+    typeList.has('File')
+      ? 'const { upload, loading, progress } = useFormDataApi();'
+      : 'const { sendData, loading } = useDataApi();'
+  }
 ${formContent}
 ${createContent}
-  return { form, mode, progress, loading${
+  return { form, mode, ${typeList.has('File') ? 'progress, ' : ''}loading${
     canCreate ? `, create${names.modelName}` : ''
   } }
 };
