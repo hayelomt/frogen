@@ -2,9 +2,9 @@ import fs from 'fs';
 import path from 'path';
 import { parseModelName } from '../../utils/text';
 import { FormMeta } from '../../utils/types';
-import { generateHook } from '../hook/hookController';
+import { generateFormHook } from '../hook/form/hookController';
 
-export const generateHookFile = (baseFolder: string, meta: FormMeta) => {
+export const generateFormHookFile = (baseFolder: string, meta: FormMeta) => {
   const name = parseModelName(meta.model);
 
   const curDir = path.join(baseFolder, 'lib', 'hooks');
@@ -12,7 +12,7 @@ export const generateHookFile = (baseFolder: string, meta: FormMeta) => {
     curDir,
     `use${name.modelName}FormController.ts`
   );
-  const hookContent = generateHook(curDir, meta);
+  const hookContent = generateFormHook(curDir, meta);
 
   fs.writeFileSync(hookFileName, hookContent);
 };

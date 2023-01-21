@@ -4,6 +4,11 @@ import 'colors';
 
 const meta: FormMeta = {
   model: 'project',
+  plural: {
+    label: 'Projects',
+    model: 'projects',
+    capital: 'Projects',
+  },
   ui: {
     modes: {
       create: true,
@@ -16,7 +21,8 @@ const meta: FormMeta = {
   },
   api: {
     endpoints: {
-      create: 'auth-pragma23/projects',
+      create: 'auth-pragma23/clients',
+      read: 'clients',
     },
   },
   fields: [
@@ -81,35 +87,43 @@ const meta: FormMeta = {
     //     ],
     //   },
     // ],
-    [
-      {
-        type: 'varchar',
-        label: 'Title',
-        fieldName: 'title',
-      },
-    ],
-    [
-      {
-        type: 'varchar',
-        label: 'Highlight',
-        fieldName: 'highlight_figure',
-      },
-    ],
-    [
-      {
-        type: 'text',
-        label: 'Description',
-        fieldName: 'description',
-      },
-    ],
     // [
     //   {
-    //     type: 'File',
-    //     label: 'Image',
-    //     fieldName: 'image',
-    //     fileType: 'image',
+    //     type: 'varchar',
+    //     label: 'Title',
+    //     fieldName: 'title',
     //   },
     // ],
+    // [
+    //   {
+    //     type: 'varchar',
+    //     label: 'Highlight',
+    //     fieldName: 'highlight_figure',
+    //   },
+    // ],
+    // [
+    //   {
+    //     type: 'text',
+    //     label: 'Description',
+    //     fieldName: 'description',
+    //   },
+    // ],
+    [
+      {
+        type: 'varchar',
+        label: 'Link',
+        fieldName: 'link',
+      },
+    ],
+    [
+      {
+        type: 'File',
+        label: 'Image',
+        fieldName: 'image',
+        fileType: 'image',
+        collectionName: 'images',
+      },
+    ],
     // [
     //   {
     //     type: 'File',

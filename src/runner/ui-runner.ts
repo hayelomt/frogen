@@ -1,7 +1,10 @@
 import path from 'path';
 import { generateFormFile } from '../generators/file/formFileGen';
-import { generateHookFile } from '../generators/file/hookGen';
-import { generateModelFile } from '../generators/file/modelGen';
+import { generateFormHookFile } from '../generators/file/formHookFileGen';
+import { generateListComponentFile } from '../generators/file/listComponentFileGen';
+import { generateLoadListHookFile } from '../generators/file/listHookFileGen';
+import { generateListStateFile } from '../generators/file/listStateFileGen';
+import { generateModelFile } from '../generators/file/modelFileGen';
 import { generatePageFile } from '../generators/file/pageFileGen';
 import { generateServiceFile } from '../generators/file/serviceGen';
 import { generateUiFolders } from '../generators/folder/uiFolderGen';
@@ -27,7 +30,7 @@ export const generateUi = (meta: FormMeta) => {
 
   generateServiceFile(baseFolder, meta);
 
-  generateHookFile(baseFolder, meta);
+  generateFormHookFile(baseFolder, meta);
 
   if (meta.ui.modes.create || meta.ui.modes.update) {
     generateFormFile(baseFolder, meta);
@@ -36,4 +39,10 @@ export const generateUi = (meta: FormMeta) => {
   generatePageFile(baseFolder, meta);
 
   generateImports(meta);
+
+  generateListStateFile(baseFolder, meta);
+
+  generateLoadListHookFile(baseFolder, meta);
+
+  generateListComponentFile(baseFolder, meta);
 };

@@ -7,29 +7,30 @@ export type FieldType =
   | 'dropdown'
   | 'date';
 
-export type DropdownMeta = {
-  type: 'dropdown';
+type _MetaShared = {
+  type: FieldType;
   fieldName: string;
   label: string;
   optional?: boolean;
   nonEditable?: boolean;
-  selectOptions: { label: string; value: string }[];
   fileType?: 'image' | 'file';
+  collectionName?: string;
+  hideOnTable?: boolean;
 };
 
-export type FormMetaField =
-  | {
-      type: FieldType;
-      fieldName: string;
-      label: string;
-      optional?: boolean;
-      nonEditable?: boolean;
-      fileType?: 'image' | 'file';
-    }
-  | DropdownMeta;
+export type DropdownMeta = _MetaShared & {
+  selectOptions: { label: string; value: string }[];
+};
+
+export type FormMetaField = _MetaShared | DropdownMeta;
 
 export type FormMeta = {
   model: string;
+  plural: {
+    label: string;
+    model: string;
+    capital: string;
+  };
   fields: FormMetaField[][];
   ui: {
     modes: {
@@ -43,6 +44,10 @@ export type FormMeta = {
   api: {
     endpoints: {
       create?: string;
+      read?: string;
+      update?: string;
+      delete?: string;
+      deleteMulti?: string;
     };
   };
 };

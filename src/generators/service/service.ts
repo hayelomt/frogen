@@ -16,8 +16,18 @@ import {
   validateRules,
   Validator,
 } from '${corePrefix}core/services/validation';
+import { getApiData } from '${corePrefix}core/services/api';
+import { FetchListArgs, Paginated } from '${corePrefix}core/util/types';
+import ApiQueryBuilderService from '${corePrefix}core/services/apiQueryBuilderService';
 
 const ${name.modelName}Service = {
+  fetch${meta.plural.capital}: (args: FetchListArgs) => {
+    const query = ApiQueryBuilderService.parseQuery(args);
+    return getApiData<Paginated<${name.modelName}>>(\`${meta.api.endpoints.read}?\${query}\`, {
+      token: args.token,
+    });
+  },
+
   initialize: (${name.camelName}?: ${name.modelName}): ${name.modelName}Dto => {
     return {
 ${initializer}

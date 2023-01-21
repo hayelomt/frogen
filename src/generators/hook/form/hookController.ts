@@ -1,10 +1,10 @@
-import { parseModelName } from '../../utils/text';
-import { getCorePrefix, parseTypeList } from '../../utils/tools';
-import { FormMeta } from '../../utils/types';
+import { parseModelName } from '../../../utils/text';
+import { getCorePrefix, parseTypeList } from '../../../utils/tools';
+import { FormMeta } from '../../../utils/types';
 import { generateDataCreator, generateFormDataCreator } from './createItem';
 import { generateHookForm } from './hookForm';
 
-export const generateHook = (curDir: string, meta: FormMeta): string => {
+export const generateFormHook = (curDir: string, meta: FormMeta): string => {
   const {
     create: canCreate,
     update: canUpdate,

@@ -1,5 +1,5 @@
-import { parseModelName } from '../../utils/text';
-import { FormMeta } from '../../utils/types';
+import { parseModelName } from '../../../utils/text';
+import { FormMeta } from '../../../utils/types';
 
 export const generateFormDataCreator = (meta: FormMeta): string => {
   const name = parseModelName(meta.model);

@@ -29,3 +29,13 @@ export const parseTypeList = (meta: FormMeta) =>
       .map((row) => row.map((i) => i.type))
       .reduce((a, b) => a.concat(b), [])
   );
+
+export const hasImage = (meta: FormMeta): boolean => {
+  const types = new Set(
+    meta.fields
+      .map((row) => row.map((i) => i.fileType))
+      .reduce((a, b) => a.concat(b), [])
+  );
+
+  return types.has('image');
+};

@@ -1,4 +1,5 @@
 import { parseModelName } from '../../utils/text';
+import { getCorePrefix, hasImage } from '../../utils/tools';
 import { FormMeta, FormMetaField, ModelFieldType } from '../../utils/types';
 
 const parseModelFieldType = ({ type }: FormMetaField): ModelFieldType => {
@@ -18,7 +19,8 @@ const parseModelFieldType = ({ type }: FormMetaField): ModelFieldType => {
   return 'string';
 };
 
-export const generateBaseModel = (meta: FormMeta) => {
+export const generateBaseModel = (curDir: string, meta: FormMeta) => {
+  const corePrefix = getCorePrefix(curDir, meta.ui.baseFolderPath);
   const parsedName = parseModelName(meta.model);
   const spaces = '  ';
 
@@ -35,13 +37,17 @@ export const generateBaseModel = (meta: FormMeta) => {
     )
     .join('\n');
 
-  return `
+  return `import { BaseResponseModel${
+    hasImage(meta) ? ', Media' : ''
+  } } from '${corePrefix}core/util/types';
+
 export type ${parsedName.modelName}Dto = {
 ${parsedMeta}
 }
 
 export type ${parsedName.modelName} = {
 ${parsedMeta}
-}  
+${hasImage(meta) ? '  media: Media[]' : ''}
+} & BaseResponseModel; 
 `;
 };
