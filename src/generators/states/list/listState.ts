@@ -44,6 +44,13 @@ const use${meta.plural.capital}State = create<${meta.plural.capital}State & ${me
       set({ tableMeta: updatedMeta, curPage: 1 });
       TableService.saveConfig(${name.modelName}Key, updatedMeta);
     },
+
+    remove${name.modelName}(id) {
+      set({
+        ${meta.plural.model}: get().${meta.plural.model}.filter((i) => i.id !== id),
+        total: get().total - 1,
+      });
+    },
   })
 );
 `;

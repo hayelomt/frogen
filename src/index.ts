@@ -22,6 +22,7 @@ const meta: FormMeta = {
   api: {
     endpoints: {
       create: 'auth-pragma23/clients',
+      delete: 'auth-pragma23/clients',
       read: 'clients',
     },
   },

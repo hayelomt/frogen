@@ -19,6 +19,7 @@ type ${meta.plural.capital}Action = {
   updateTableMeta: (args: Partial<TableMeta>) => void;
   setCurPage: (i: number) => void;
   onSetRowsPerPage: (val: number) => void;
+  remove${name.modelName}: (id: string) => void;
 };
 
 const ${name.modelName}Key = '_table_${name.modelKey}';

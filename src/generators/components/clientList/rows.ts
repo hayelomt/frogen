@@ -1,3 +1,4 @@
+import { parseModelName } from '../../../utils/text';
 import { FormMeta, FormMetaField } from '../../../utils/types';
 
 const parseFormField = (item: FormMetaField): string => {
@@ -12,6 +13,7 @@ export const generateRows = (meta: FormMeta): string => {
   const fields = meta.fields
     .reduce((a, b) => a.concat(b), [])
     .filter((i) => i.hideOnTable !== true);
+  const name = parseModelName(meta.model);
 
   const data = fields.map((i) => `  <td>${parseFormField(i)}</td>`).join('\n');
 
@@ -24,14 +26,22 @@ export const generateRows = (meta: FormMeta): string => {
       style={{ cursor: 'pointer' }}
     >
       ${data}
+      <td><DateDisplay date={item.updated_at} /></td>
       <td style={{ maxWidth: '120px' }}>
         <Group spacing={4}>
           <ActionIcon radius="xs" onClick={() => console.log('edit')}>
             <IconEdit size={16} />
-          </ActionIcon>
-          <ActionIcon radius="xs" onClick={() => console.log('trash')}>
-            <IconTrash size={16} />
-          </ActionIcon>
+          </ActionIcon>${
+            meta.ui.modes.delete
+              ? `\n          <DeleteItem
+            id={item.id}
+            deleteUrl={\`${meta.api.endpoints.delete}/\${item.id}\`}
+            onDeleted={() => {
+              remove${name.modelName}(item.id);
+            }}
+          />`
+              : ''
+          }
         </Group>
       </td>
     </tr>

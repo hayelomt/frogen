@@ -12,6 +12,7 @@ export const generateListHeader = (meta: FormMeta): string => {
         <thead>
           <tr>
 ${header}
+            <th>Updated at</th>
           </tr>
         </thead>
   `;
