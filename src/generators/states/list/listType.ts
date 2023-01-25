@@ -12,6 +12,8 @@ type ${meta.plural.capital}State = {
   tableMeta: TableMeta;
   curPage: number;
   total: number;
+  editable${name.modelName}: ${name.modelName} | null;
+  formLoading: boolean;
 };
 
 type ${meta.plural.capital}Action = {
@@ -20,6 +22,10 @@ type ${meta.plural.capital}Action = {
   setCurPage: (i: number) => void;
   onSetRowsPerPage: (val: number) => void;
   remove${name.modelName}: (id: string) => void;
+  setEditable${name.modelName}: (val: ${name.modelName} | null) => void;
+  setFormLoading: (val: boolean) => void;
+  add${name.modelName}: (data: ${name.modelName}) => void;
+  update${name.modelName}: (data: ${name.modelName}) => void;
 };
 
 const ${name.modelName}Key = '_table_${name.modelKey}';
@@ -31,6 +37,8 @@ const initialState: ${meta.plural.capital}State = {
   tableMeta: TableService.getSavedConfig(${name.modelName}Key),
   curPage: 1,
   total: 0,
+  editable${name.modelName}: null,
+  formLoading: false,
 };
 `;
 };

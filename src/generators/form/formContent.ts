@@ -50,24 +50,36 @@ export const generateForm = (meta: FormMeta) => {
   const importList = getImports(meta);
   const typeList = parseTypeList(meta);
 
-  return `import { Button, Grid, Drawer, Group, ${importList} } from '@mantine/core';${getDateImport(
+  return `import { Button, Grid, Group, ${importList} } from '@mantine/core';
+import { shallow } from 'zustand/shallow';${getDateImport(
     meta
   )}${getFileIconImport(meta)}
 import { use${name.modelName}FormController } from '../lib/hooks/use${
     name.modelName
   }FormController';
+import use${meta.plural.capital}State from '../lib/states/use${
+    meta.plural.capital
+  }State';
 
 type ${name.modelName}FormProps = {
-  formOpen: boolean;
   onClose: () => void;
 };
 
-const ${name.modelName}Form = ({ formOpen, onClose }: ${
+const ${name.modelName}Form = ({ onClose }: ${name.modelName}FormProps) => {
+  const [editable${name.modelName}, setEditable${name.modelName}] = use${
+    meta.plural.capital
+  }State(
+    (state) => [state.editable${name.modelName}, state.setEditable${
     name.modelName
-  }FormProps) => {
-  const { form, mode, create${name.modelName}, loading${
+  }],
+    shallow
+  );
+  const { form, mode, edit${name.modelName}, create${name.modelName}, loading${
     typeList.has('File') ? ', progress' : ''
-  } } = use${name.modelName}FormController();
+  } } = use${name.modelName}FormController(() => {
+      onClose();
+      setEditable${name.modelName}(null);
+    }, editable${name.modelName});
 
   return (
     <>

@@ -21,6 +21,7 @@ export const getRules = (meta: FormMeta) => {
   return meta.fields
     .map((rowItems) =>
       rowItems
+        .filter((i) => i.type !== 'File')
         .map(
           (field) => `
       ${field.fieldName}: (val) =>

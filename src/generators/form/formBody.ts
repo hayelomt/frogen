@@ -41,36 +41,28 @@ export const generateFormBody = (meta: FormMeta): string => {
     : '';
 
   return `
-      <Drawer
-        opened={formOpen}
-        onClose={() => {
-          if (!loading) {
-            onClose();
-          }
-        }}
-        title=""
-        padding="xl"
-        size="xl"
-        position="right"
-      >
-        <form onSubmit={form.onSubmit(create${name.modelName})}>${progressIndicator}
-          ${groupedInputs}
+      <form onSubmit={form.onSubmit(
+       mode === 'create' ? create${name.modelName} : edit${name.modelName}
+      )}>${progressIndicator}
+        ${groupedInputs}
 
-          <Group position="right" mt="xl" pr="xs">
-            <Button type="submit" loading={loading} disabled={loading}>
-              Create
-            </Button>
+        <Group position="right" mt="xl" pr="xs">
+          <Button type="submit" loading={loading} disabled={loading}>
+            {mode === 'create' ? 'Create' : 'Edit'}
+          </Button>
 
-            <Button
-              type="button"
-              color="gray"
-              onClick={onClose}
-              disabled={loading}
-            >
-              Cancel
-            </Button>
-          </Group>
-        </form>
-      </Drawer>
+          <Button
+            type="button"
+            color="gray"
+            onClick={() => {
+              onClose();
+              setEditable${name.modelName}(null);
+            }}
+            disabled={loading}
+          >
+            Cancel
+          </Button>
+        </Group>
+      </form>
    `;
 };

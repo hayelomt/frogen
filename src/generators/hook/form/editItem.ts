@@ -1,15 +1,15 @@
 import { parseModelName } from '../../../utils/text';
 import { FormMeta } from '../../../utils/types';
 
-export const generateFormDataCreator = (meta: FormMeta): string => {
+export const generateFormDataEdit = (meta: FormMeta): string => {
   const name = parseModelName(meta.model);
 
   return `
-  const create${name.modelName} = async (payload: ${name.modelName}Dto) => {
+  const edit${name.modelName} = async (payload: ${name.modelName}Dto) => {
     const parsedPayload = FormParser.init(payload).data;
     const formData = FormService.parseFormData(parsedPayload);
     const { data, error, mode } = await upload<${name.modelName}>(
-      '${meta.api.endpoints.create}',
+      \`${meta.api.endpoints.update}/\${instance!.id}?_method=PATCH\`,
       {
         payload: formData,
         errorSetter: form.setFieldError,
@@ -22,21 +22,22 @@ export const generateFormDataCreator = (meta: FormMeta): string => {
       return;
     }
 
-    add${name.modelName}(data);
+    update${name.modelName}(data);
     form.reset();
-    toastSuccess({ title: '${name.label} added' });
+    toastSuccess({ title: '${name.label} updated' });
+    onDone();
   };
   `;
 };
 
-export const generateDataCreator = (meta: FormMeta): string => {
+export const generateDataEdit = (meta: FormMeta): string => {
   const name = parseModelName(meta.model);
 
   return `
-  const create${name.modelName} = async (payload: ${name.modelName}Dto) => {
+  const edit${name.modelName} = async (payload: ${name.modelName}Dto) => {
     const parsedPayload = FormParser.init(payload).data;
     const { data, error, mode } = await sendData<${name.modelName}>(
-      '${meta.api.endpoints.create}',
+      \`${meta.api.endpoints.update}/\${instance!.id}?_method=PATCH\`,
       {
         payload: parsedPayload,
         errorSetter: form.setFieldError,
@@ -49,9 +50,10 @@ export const generateDataCreator = (meta: FormMeta): string => {
       return;
     }
 
-    add${name.modelName}(data);
+    update${name.modelName}(data);
     form.reset();
-    toastSuccess({ title: '${name.label} added' });
+    toastSuccess({ title: '${name.label} updated' });
+    onDone();
   };
   `;
 };

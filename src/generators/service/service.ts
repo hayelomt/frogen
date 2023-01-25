@@ -17,7 +17,8 @@ import {
   Validator,
 } from '${corePrefix}core/services/validation';
 import { getApiData } from '${corePrefix}core/services/api';
-import { FetchListArgs, Paginated } from '${corePrefix}core/util/types';
+import { FetchListArgs,
+  FormModes, Paginated } from '${corePrefix}core/util/types';
 import ApiQueryBuilderService from '${corePrefix}core/services/apiQueryBuilderService';
 
 const ${name.modelName}Service = {
@@ -28,13 +29,13 @@ const ${name.modelName}Service = {
     });
   },
 
-  initialize: (${name.camelName}?: ${name.modelName}): ${name.modelName}Dto => {
+  initialize: (${name.camelName}?: ${name.modelName} | null): ${name.modelName}Dto => {
     return {
 ${initializer}
     }
   },
 
-  validation: (): FormValidateInput<${name.modelName}Dto | undefined> => {
+  validation: (mode: FormModes): FormValidateInput<${name.modelName}Dto | undefined> => {
     return {
 ${rules}
     }

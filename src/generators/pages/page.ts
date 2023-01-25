@@ -6,7 +6,7 @@ export const generatePage = (curDir: string, meta: FormMeta): string => {
   const corePrefix = getCorePrefix(curDir, meta.ui.baseFolderPath);
   const name = parseModelName(meta.model);
 
-  return `import { Box, Button, Drawer, Group, Text } from '@mantine/core';
+  return `import { Box, Button, Group, Text, Drawer } from '@mantine/core';
 import { IconPlus } from '@tabler/icons';
 import { useState } from 'react';
 import Layout from '${corePrefix}core/ui/layout/Layout';
@@ -29,6 +29,9 @@ const ${name.modelName}Page = () => {
     total,
     tableMeta,
     onSetRowsPerPage,
+    edit${name.modelName},
+    setEdit${name.modelName},
+    formLoading,
   } = useLoad${meta.plural.capital}();
 
   return (
@@ -63,15 +66,23 @@ const ${name.modelName}Page = () => {
         </Box>
 
         <Drawer
-          opened={formOpen}
-          onClose={() => setFormOpen(false)}
+          opened={formOpen || edit${name.modelName} !== null}
+          onClose={() => {
+            if (!formLoading) {
+              setFormOpen(false);
+              setEdit${name.modelName}(null);
+            }
+          }}
           title=""
           padding="xl"
-          size="lg"
+          size="xl"
           position="right"
         >
-          <${name.modelName}Form formOpen={formOpen} onClose={() => setFormOpen(false)} />
+          {Boolean(formOpen || edit${name.modelName} !== null) && (
+            <${name.modelName}Form onClose={() => setFormOpen(false)} />
+          )}
         </Drawer>
+        
       </Layout>
     </>
   );

@@ -13,6 +13,7 @@ export const generateListHeader = (meta: FormMeta): string => {
           <tr>
 ${header}
             <th>Updated at</th>
+            <th style={{ maxWidth: '120px' }}></th>
           </tr>
         </thead>
   `;

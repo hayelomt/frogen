@@ -29,19 +29,23 @@ export const generateRows = (meta: FormMeta): string => {
       <td><DateDisplay date={item.updated_at} /></td>
       <td style={{ maxWidth: '120px' }}>
         <Group spacing={4}>
-          <ActionIcon radius="xs" onClick={() => console.log('edit')}>
+          ${
+            meta.ui.modes.update
+              ? `<ActionIcon radius="xs" onClick={() => setEdit${name.modelName}(item)}>
             <IconEdit size={16} />
-          </ActionIcon>${
-            meta.ui.modes.delete
-              ? `\n          <DeleteItem
+          </ActionIcon>`
+              : ''
+          }${
+    meta.ui.modes.delete
+      ? `\n          <DeleteItem
             id={item.id}
             deleteUrl={\`${meta.api.endpoints.delete}/\${item.id}\`}
             onDeleted={() => {
               remove${name.modelName}(item.id);
             }}
           />`
-              : ''
-          }
+      : ''
+  }
         </Group>
       </td>
     </tr>

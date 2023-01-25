@@ -6,8 +6,8 @@ export const generateHookForm = (meta: FormMeta) => {
 
   return `  
   const form = useForm<${name.modelName}Dto>({
-    initialValues: ${name.modelName}Service.initialize(),
-    validate: ${name.modelName}Service.validation(),
+    initialValues: ${name.modelName}Service.initialize(instance),
+    validate: ${name.modelName}Service.validation(mode),
   });
   `;
 };

@@ -3,11 +3,11 @@ import { FormMeta } from './utils/types';
 import 'colors';
 
 const meta: FormMeta = {
-  model: 'project',
+  model: 'blog',
   plural: {
-    label: 'Projects',
-    model: 'projects',
-    capital: 'Projects',
+    label: 'Blogs',
+    model: 'blogs',
+    capital: 'Blogs',
   },
   ui: {
     modes: {
@@ -23,6 +23,7 @@ const meta: FormMeta = {
     endpoints: {
       create: 'auth-pragma23/clients',
       delete: 'auth-pragma23/clients',
+      update: 'auth-pragma23/clients',
       read: 'clients',
     },
   },

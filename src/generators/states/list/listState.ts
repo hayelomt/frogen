@@ -51,6 +51,32 @@ const use${meta.plural.capital}State = create<${meta.plural.capital}State & ${me
         total: get().total - 1,
       });
     },
+
+    setEditable${name.modelName}(val) {
+      set({
+        editable${name.modelName}: val,
+      });
+    },
+
+    setFormLoading(val) {
+      set({ formLoading: val });
+    },
+
+    add${name.modelName}(data) {
+      set({
+        ${meta.plural.model}: [data, ...get().${meta.plural.model}],
+        total: get().total + 1,
+      });
+    },
+
+    update${name.modelName}(data) {
+      const curData = [...get().${meta.plural.model}];
+      const index = get().${meta.plural.model}.findIndex((i) => i.id === data.id);
+      if (index === -1) return;
+
+      curData[index] = data;
+      set({ ${meta.plural.model}: curData });
+    },
   })
 );
 `;

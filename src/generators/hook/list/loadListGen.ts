@@ -1,3 +1,4 @@
+import { parseModelName } from '../../../utils/text';
 import { getFeaturePrefix } from '../../../utils/tools';
 import { FormMeta } from '../../../utils/types';
 
@@ -6,6 +7,7 @@ export const generateLoadListController = (
   meta: FormMeta
 ): string => {
   const featurePrefix = getFeaturePrefix(curDir, meta.ui.baseFolderPath);
+  const name = parseModelName(meta.model);
 
   return `
 import { useEffect } from 'react';
@@ -24,6 +26,9 @@ export const useLoad${meta.plural.capital} = () => {
     curPage,
     setCurPage,
     onSetRowsPerPage,
+    edit${name.modelName},
+    setEdit${name.modelName},
+    formLoading,
   ] = use${meta.plural.capital}State(
     (state) => [
       state.${meta.plural.model},
@@ -34,6 +39,9 @@ export const useLoad${meta.plural.capital} = () => {
       state.curPage,
       state.setCurPage,
       state.onSetRowsPerPage,
+      state.editable${name.modelName},
+      state.setEditable${name.modelName},
+      state.formLoading,
     ],
     shallow
   );
@@ -59,6 +67,9 @@ export const useLoad${meta.plural.capital} = () => {
     total,
     tableMeta,
     onSetRowsPerPage,
+    edit${name.modelName},
+    setEdit${name.modelName},
+    formLoading,
   };
 };
 

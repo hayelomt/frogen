@@ -4,7 +4,7 @@ import { FormMeta } from '../../../utils/types';
 import { generateListHeader } from './listHeader';
 import { generateRows } from './rows';
 
-export const generateClientListComponent = (
+export const generateListComponent = (
   curDir: string,
   meta: FormMeta
 ): string => {
@@ -17,8 +17,9 @@ export const generateClientListComponent = (
   const importPreview = fields.map((i) => i.fileType).includes('image');
   const name = parseModelName(meta.model);
 
-  return `import { ActionIcon, Box, Flex, Grid, Group, Table } from '@mantine/core';
-import { IconEdit, IconTrash } from '@tabler/icons';
+  return `import { ActionIcon, Group, Table } from '@mantine/core';
+import { IconEdit } from '@tabler/icons';
+import { shallow } from 'zustand/shallow';
 import DateDisplay from '${corePrefix}core/ui/layout/components/DateDisplay';${
     meta.ui.modes.delete
       ? `\nimport DeleteItem from '${corePrefix}core/ui/layout/components/DeleteItem';`
@@ -41,11 +42,16 @@ type ${model.modelName}ListProps = {
 const ${model.modelName}List = ({ ${meta.plural.model} }: ${
     model.modelName
   }ListProps) => {
-  ${
-    meta.ui.modes.delete
-      ? `const remove${name.modelName} = use${meta.plural.capital}State((state) => state.remove${name.modelName});`
-      : ''
-  }
+  const [${meta.ui.modes.delete ? `remove${name.modelName}` : ''}${
+    meta.ui.modes.delete && meta.ui.modes.update && ', '
+  }${meta.ui.modes.update ? `setEdit${name.modelName}` : ''}] = use${
+    meta.plural.capital
+  }State(
+    (state) => [${meta.ui.modes.delete ? `state.remove${name.modelName}` : ''}${
+    meta.ui.modes.delete && meta.ui.modes.update && ', '
+  }${meta.ui.modes.update ? `state.setEditable${name.modelName}` : ''}],
+    shallow
+  );
   ${generateRows(meta)}
   return (
     <>
