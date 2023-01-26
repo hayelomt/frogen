@@ -1,14 +1,14 @@
 import path from 'path';
-import { generateFormFile } from '../generators/file/formFileGen';
-import { generateFormHookFile } from '../generators/file/formHookFileGen';
-import { generateListComponentFile } from '../generators/file/listComponentFileGen';
-import { generateLoadListHookFile } from '../generators/file/listHookFileGen';
-import { generateListStateFile } from '../generators/file/listStateFileGen';
-import { generateModelFile } from '../generators/file/modelFileGen';
-import { generatePageFile } from '../generators/file/pageFileGen';
-import { generateServiceFile } from '../generators/file/serviceGen';
-import { generateUiFolders } from '../generators/folder/uiFolderGen';
-import { generateImports } from '../generators/import/generateImport';
+import { generateFormFile } from '../generators/ui/file/formFileGen';
+import { generateFormHookFile } from '../generators/ui/file/formHookFileGen';
+import { generateListComponentFile } from '../generators/ui/file/listComponentFileGen';
+import { generateLoadListHookFile } from '../generators/ui/file/listHookFileGen';
+import { generateListStateFile } from '../generators/ui/file/listStateFileGen';
+import { generateModelFile } from '../generators/ui/file/modelFileGen';
+import { generatePageFile } from '../generators/ui/file/pageFileGen';
+import { generateServiceFile } from '../generators/ui/file/serviceGen';
+import { generateUiFolders } from '../generators/ui/folder/uiFolderGen';
+import { generateImports } from '../generators/ui/import/generateImport';
 import { parseModelName } from '../utils/text';
 import { FormMeta } from '../utils/types';
 
