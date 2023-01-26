@@ -33,3 +33,11 @@
 - [] filtering
 
 #### API
+
+- [] single mode media support
+- [] multi media items support
+- [] filtering
+
+#### Optional
+
+- [] add meta validator

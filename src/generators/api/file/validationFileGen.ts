@@ -22,6 +22,8 @@ export const generateApiValidationFile = (meta: FormMeta) => {
   const createFilePath = path.join(basePath, `Create${name.modelName}Val.php`);
   fs.writeFileSync(createFilePath, createContent);
 
-  const editFilePath = path.join(basePath, `Edit${name.modelName}Val.php`);
-  fs.writeFileSync(editFilePath, editContent);
+  if (meta.api.controllerMode === 'multi') {
+    const editFilePath = path.join(basePath, `Edit${name.modelName}Val.php`);
+    fs.writeFileSync(editFilePath, editContent);
+  }
 };

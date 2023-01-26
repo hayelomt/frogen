@@ -24,7 +24,7 @@ const writeMigrationData = (tablePath: string, schema: string) => {
   fs.writeFileSync(tablePath, replaced);
 };
 
-const generateJsonModel = (fields: string[]): string => {
+const generateJsonModel = (name: string, fields: string[]): string => {
   return `<?php
 
 namespace App\\Models;
@@ -32,7 +32,7 @@ namespace App\\Models;
 use Illuminate\\Database\\Eloquent\\Factories\\HasFactory;
 use Illuminate\\Database\\Eloquent\\Model;
 
-class Client extends Model
+class ${name} extends Model
 {
     use HasFactory;
 
@@ -41,7 +41,7 @@ class Client extends Model
 `;
 };
 
-const generateFileModel = (fields: string[]): string => {
+const generateFileModel = (name: string, fields: string[]): string => {
   return `<?php
 
 namespace App\\Models;
@@ -51,7 +51,7 @@ use Illuminate\\Database\\Eloquent\\Model;
 use Spatie\\MediaLibrary\\HasMedia\\HasMedia;
 use Spatie\\MediaLibrary\\HasMedia\\HasMediaTrait;
 
-class Client extends Model implements HasMedia
+class ${name} extends Model implements HasMedia
 {
     use HasFactory, HasMediaTrait;
 
@@ -88,6 +88,6 @@ export const generateApiModel = async (meta: FormMeta) => {
     .map((i) => i.fieldName);
 
   return types.has('File')
-    ? generateFileModel(fields)
-    : generateJsonModel(fields);
+    ? generateFileModel(name.modelName, fields)
+    : generateJsonModel(name.modelName, fields);
 };

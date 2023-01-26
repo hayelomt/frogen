@@ -22,6 +22,7 @@ const meta: FormMeta = {
   api: {
     baseFolderPath:
       '/media/ht/OS/Users/DeLL/Documents/Projects/mad/pragma/pragma-api',
+    controllerMode: 'multi',
     phpCommand: '/opt/lampp/bin/php',
     endpoints: {
       create: 'auth-pragma23/clients',

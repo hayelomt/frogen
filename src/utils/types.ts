@@ -45,6 +45,7 @@ export type FormMeta = {
   };
   api: {
     baseFolderPath: string;
+    controllerMode: 'single' | 'multi';
     phpCommand: string;
     endpoints: {
       create?: string;
