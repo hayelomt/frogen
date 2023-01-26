@@ -1,5 +1,5 @@
 import path from 'path';
-import { FormMeta } from './types';
+import { FormMeta, FormMetaField } from './types';
 
 const getTokenCount = (curDir: string, baseUiDir: string): number =>
   curDir
@@ -29,6 +29,9 @@ export const parseTypeList = (meta: FormMeta) =>
       .map((row) => row.map((i) => i.type))
       .reduce((a, b) => a.concat(b), [])
   );
+
+export const getFieldList = (meta: FormMeta): FormMetaField[] =>
+  meta.fields.reduce((a, b) => a.concat(b), []);
 
 export const hasImage = (meta: FormMeta): boolean => {
   const types = new Set(

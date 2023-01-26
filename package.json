@@ -6,7 +6,9 @@
   "scripts": {
     "build": "rimraf dist && tsc",
     "preserve": "npm run build",
-    "dev": "cross-env NODE_ENV=development concurrently \"tsc --watch\" \"nodemon -q dist/index.js\"",
+    "watch": "tsc --watch",
+    "dev": "nodemon --exec 'clear && node dist/index.js'",
+    "devold": "cross-env NODE_ENV=development concurrently \"tsc --watch\" \"",
     "go": "tsc && node dist/index.js",
     "prestart": "npm run build",
     "start": "cross-env NODE_ENV=production node dist/index.js",

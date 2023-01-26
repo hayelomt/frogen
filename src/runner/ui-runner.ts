@@ -13,6 +13,7 @@ import { parseModelName } from '../utils/text';
 import { FormMeta } from '../utils/types';
 
 export const generateUi = (meta: FormMeta) => {
+  console.log('Generating frontend 🎨\n'.cyan);
   // TODO: Add existing file check
   const parsedName = parseModelName(meta.model);
 

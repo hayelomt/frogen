@@ -1,6 +1,6 @@
-import { generateUi } from './runner/ui-runner';
-import { FormMeta } from './utils/types';
 import 'colors';
+import { generateApi } from './src/runner/api-runner';
+import { FormMeta } from './src/utils/types';
 
 const meta: FormMeta = {
   model: 'blog',
@@ -20,6 +20,9 @@ const meta: FormMeta = {
       '/media/ht/OS/Users/DeLL/Documents/Projects/mad/pragma/prgama-admin',
   },
   api: {
+    baseFolderPath:
+      '/media/ht/OS/Users/DeLL/Documents/Projects/mad/pragma/pragma-api',
+    phpCommand: '/opt/lampp/bin/php',
     endpoints: {
       create: 'auth-pragma23/clients',
       delete: 'auth-pragma23/clients',
@@ -136,5 +139,12 @@ const meta: FormMeta = {
   ],
 };
 
-console.log('🚀 Started template generation...');
-generateUi(meta);
+console.log('🚀 Started template generation...\n');
+
+// Start Runner
+(async () => {
+  // generateUi(meta);
+  await generateApi(meta);
+
+  console.log('🚀 FINISHED 🚀');
+})();

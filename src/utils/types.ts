@@ -9,8 +9,10 @@ export type FieldType =
 
 type _MetaShared = {
   type: FieldType;
+  fieldSubtype?: 'int' | 'float';
   fieldName: string;
   label: string;
+  default?: any;
   optional?: boolean;
   nonEditable?: boolean;
   fileType?: 'image' | 'file';
@@ -33,15 +35,17 @@ export type FormMeta = {
   };
   fields: FormMetaField[][];
   ui: {
+    baseFolderPath: string;
+    parentFolder?: string;
     modes: {
       create: boolean;
       update: boolean;
       delete: boolean;
     };
-    baseFolderPath: string;
-    parentFolder?: string;
   };
   api: {
+    baseFolderPath: string;
+    phpCommand: string;
     endpoints: {
       create?: string;
       read?: string;
