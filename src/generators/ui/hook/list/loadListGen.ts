@@ -1,5 +1,5 @@
 import { parseModelName } from '../../../../utils/text';
-import { getFeaturePrefix } from '../../../../utils/tools';
+import { getFeaturePrefix, getFieldList } from '../../../../utils/tools';
 import { FormMeta } from '../../../../utils/types';
 
 export const generateLoadListController = (
@@ -8,14 +8,24 @@ export const generateLoadListController = (
 ): string => {
   const featurePrefix = getFeaturePrefix(curDir, meta.ui.baseFolderPath);
   const name = parseModelName(meta.model);
+  const tableFields = [
+    ...getFieldList(meta)
+      .filter((i) => i.type !== 'File')
+      .map((i) => i.fieldName),
+    'updated_at',
+    'created_at',
+  ];
 
   return `
 import { useEffect } from 'react';
 import { shallow } from 'zustand/shallow';
 import { useToken } from '${featurePrefix}auth/lib/hooks/useToken';
-import use${meta.plural.capital}State from '../states/use${meta.plural.capital}State';
+import use${meta.plural.capital}State from '../states/use${
+    meta.plural.capital
+  }State';
 
 export const useLoad${meta.plural.capital} = () => {
+  const tableFields = ${JSON.stringify(tableFields)};
   const token = useToken();
   const [
     ${meta.plural.model},
@@ -29,6 +39,7 @@ export const useLoad${meta.plural.capital} = () => {
     edit${name.modelName},
     setEdit${name.modelName},
     formLoading,
+    setSort,
   ] = use${meta.plural.capital}State(
     (state) => [
       state.${meta.plural.model},
@@ -42,6 +53,7 @@ export const useLoad${meta.plural.capital} = () => {
       state.editable${name.modelName},
       state.setEditable${name.modelName},
       state.formLoading,
+      state.setSort,
     ],
     shallow
   );
@@ -70,6 +82,8 @@ export const useLoad${meta.plural.capital} = () => {
     edit${name.modelName},
     setEdit${name.modelName},
     formLoading,
+    setSort,
+    tableFields,
   };
 };
 

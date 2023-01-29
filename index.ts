@@ -1,13 +1,14 @@
 import 'colors';
 import { generateApi } from './src/runner/api-runner';
+import { generateUi } from './src/runner/ui-runner';
 import { FormMeta } from './src/utils/types';
 
 const meta: FormMeta = {
-  model: 'blog',
+  model: 'client',
   plural: {
-    label: 'Blogs',
-    model: 'blogs',
-    capital: 'Blogs',
+    label: 'Clients',
+    model: 'clients',
+    capital: 'Clients',
   },
   ui: {
     modes: {
@@ -144,8 +145,8 @@ console.log('🚀 Started template generation...\n');
 
 // Start Runner
 (async () => {
-  // generateUi(meta);
-  await generateApi(meta);
+  generateUi(meta);
+  // await generateApi(meta);
 
   console.log('🚀 FINISHED 🚀');
 })();

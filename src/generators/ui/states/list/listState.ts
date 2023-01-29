@@ -77,6 +77,16 @@ const use${meta.plural.capital}State = create<${meta.plural.capital}State & ${me
       curData[index] = data;
       set({ ${meta.plural.model}: curData });
     },
+
+    setSort(field, asc) {
+      const updatedMeta: TableMeta = {
+        ...get().tableMeta,
+        sort_field: field,
+        sort_op: asc ? 'asc' : 'desc',
+      };
+      set({ tableMeta: updatedMeta });
+      TableService.saveConfig(${name.modelName}Key, updatedMeta);
+    },
   })
 );
 `;

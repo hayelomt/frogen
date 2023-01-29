@@ -22,7 +22,7 @@ import { IconEdit } from '@tabler/icons';
 import { shallow } from 'zustand/shallow';
 import DateDisplay from '${corePrefix}core/ui/layout/components/DateDisplay';${
     meta.ui.modes.delete
-      ? `\nimport DeleteItem from '${corePrefix}core/ui/layout/components/DeleteItem';`
+      ? `\nimport DeleteItem from '${corePrefix}core/ui/shared/DeleteItem';`
       : ''
   }
 import { ${model.modelName} } from '../lib/models/${model.camelName}';

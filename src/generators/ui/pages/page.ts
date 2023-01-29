@@ -32,6 +32,8 @@ const ${name.modelName}Page = () => {
     edit${name.modelName},
     setEdit${name.modelName},
     formLoading,
+    setSort,
+    tableFields,
   } = useLoad${meta.plural.capital}();
 
   return (
@@ -50,7 +52,16 @@ const ${name.modelName}Page = () => {
             </Button>
           </Group>
 
-          <TableFilter onRefresh={handleFetch} loading={loading} />
+          <TableFilter
+            sort={{
+              fields: tableFields,
+              currentField: tableMeta.sort_field,
+              ascending: tableMeta.sort_op === 'asc',
+              onApply: setSort,
+            }}
+            onRefresh={handleFetch}
+            loading={loading}
+          />
           <${name.modelName}List ${meta.plural.model}={${meta.plural.model}} />
           <TableFooter
             itemCount={${meta.plural.model}.length}

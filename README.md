@@ -15,28 +15,28 @@
 - [x] Delete item
 - [x] CUD configuration
 - [x] pagination
+- [x] sorting
+- [] filtering
 
 #### API
 
 - [] boilerplate setup
-- [] create api generator
-- [] read api generator
-- [] update api generator
-- [] delete api generator
+- [x] create api generator
+- [x] read api generator
+- [x] update api generator
+- [x] delete api generator
+- [] filtering
 
 ## V2
 
 #### UI
 
 - [] Date format toggle
-- [] sorting
-- [] filtering
 
 #### API
 
 - [] single mode media support
 - [] multi media items support
-- [] filtering
 
 #### Optional
 

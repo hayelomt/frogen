@@ -1,4 +1,5 @@
 import { parseModelName } from '../../../../utils/text';
+import { getFieldList } from '../../../../utils/tools';
 import { FormMeta, FormMetaField } from '../../../../utils/types';
 
 const parseFormField = (item: FormMetaField): string => {
@@ -10,9 +11,7 @@ const parseFormField = (item: FormMetaField): string => {
 };
 
 export const generateRows = (meta: FormMeta): string => {
-  const fields = meta.fields
-    .reduce((a, b) => a.concat(b), [])
-    .filter((i) => i.hideOnTable !== true);
+  const fields = getFieldList(meta).filter((i) => i.hideOnTable !== true);
   const name = parseModelName(meta.model);
 
   const data = fields.map((i) => `  <td>${parseFormField(i)}</td>`).join('\n');
@@ -26,6 +25,7 @@ export const generateRows = (meta: FormMeta): string => {
       style={{ cursor: 'pointer' }}
     >
       ${data}
+      <td><DateDisplay date={item.created_at} /></td>
       <td><DateDisplay date={item.updated_at} /></td>
       <td style={{ maxWidth: '120px' }}>
         <Group spacing={4}>

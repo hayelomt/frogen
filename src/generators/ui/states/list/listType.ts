@@ -26,6 +26,7 @@ type ${meta.plural.capital}Action = {
   setFormLoading: (val: boolean) => void;
   add${name.modelName}: (data: ${name.modelName}) => void;
   update${name.modelName}: (data: ${name.modelName}) => void;
+  setSort: (field: string, asc: boolean) => void;
 };
 
 const ${name.modelName}Key = '_table_${name.modelKey}';

@@ -7,6 +7,6 @@ export const generateApi = async (meta: FormMeta) => {
   console.log('📊 Generating api\n'.cyan);
 
   // await generateApiModelFile(meta);
-  // generateApiValidationFile(meta);
+  generateApiValidationFile(meta);
   generateApiControllerFile(meta);
 };
