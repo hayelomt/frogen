@@ -34,6 +34,8 @@ const ${name.modelName}Page = () => {
     formLoading,
     setSort,
     tableFields,
+    filters,
+    setFilters,
   } = useLoad${meta.plural.capital}();
 
   return (
@@ -59,6 +61,7 @@ const ${name.modelName}Page = () => {
               ascending: tableMeta.sort_op === 'asc',
               onApply: setSort,
             }}
+            filter={{ filters, onApply: setFilters }}
             onRefresh={handleFetch}
             loading={loading}
           />

@@ -87,6 +87,10 @@ const use${meta.plural.capital}State = create<${meta.plural.capital}State & ${me
       set({ tableMeta: updatedMeta });
       TableService.saveConfig(${name.modelName}Key, updatedMeta);
     },
+
+    setFilters(filters) {
+      set({ filters })
+    }
   })
 );
 `;

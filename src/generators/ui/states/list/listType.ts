@@ -14,6 +14,7 @@ type ${meta.plural.capital}State = {
   total: number;
   editable${name.modelName}: ${name.modelName} | null;
   formLoading: boolean;
+  filters: any[];
 };
 
 type ${meta.plural.capital}Action = {
@@ -27,6 +28,7 @@ type ${meta.plural.capital}Action = {
   add${name.modelName}: (data: ${name.modelName}) => void;
   update${name.modelName}: (data: ${name.modelName}) => void;
   setSort: (field: string, asc: boolean) => void;
+  setFilters: (filters: any[]) => void;
 };
 
 const ${name.modelName}Key = '_table_${name.modelKey}';
@@ -40,6 +42,7 @@ const initialState: ${meta.plural.capital}State = {
   total: 0,
   editable${name.modelName}: null,
   formLoading: false,
+  filters: [],
 };
 `;
 };

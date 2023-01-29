@@ -40,6 +40,8 @@ export const useLoad${meta.plural.capital} = () => {
     setEdit${name.modelName},
     formLoading,
     setSort,
+    filters,
+    setFilters,
   ] = use${meta.plural.capital}State(
     (state) => [
       state.${meta.plural.model},
@@ -54,6 +56,8 @@ export const useLoad${meta.plural.capital} = () => {
       state.setEditable${name.modelName},
       state.formLoading,
       state.setSort,
+      state.filters,
+      state.setFilters,
     ],
     shallow
   );
@@ -62,7 +66,7 @@ export const useLoad${meta.plural.capital} = () => {
 
   useEffect(() => {
     handleFetch();
-  }, [tableMeta, curPage]);
+  }, [tableMeta, curPage, filters]);
 
   const onNext = () => setCurPage(curPage + 1);
 
@@ -84,6 +88,8 @@ export const useLoad${meta.plural.capital} = () => {
     formLoading,
     setSort,
     tableFields,
+    filters,
+    setFilters,
   };
 };
 
