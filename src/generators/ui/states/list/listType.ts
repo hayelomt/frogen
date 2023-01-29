@@ -15,6 +15,8 @@ type ${meta.plural.capital}State = {
   editable${name.modelName}: ${name.modelName} | null;
   formLoading: boolean;
   filters: any[];
+  selectedItems: Set<string>;
+  deletingMulti: boolean;
 };
 
 type ${meta.plural.capital}Action = {
@@ -22,13 +24,16 @@ type ${meta.plural.capital}Action = {
   updateTableMeta: (args: Partial<TableMeta>) => void;
   setCurPage: (i: number) => void;
   onSetRowsPerPage: (val: number) => void;
-  remove${name.modelName}: (id: string) => void;
+  remove${meta.plural.capital}: (id: string[]) => void;
   setEditable${name.modelName}: (val: ${name.modelName} | null) => void;
   setFormLoading: (val: boolean) => void;
   add${name.modelName}: (data: ${name.modelName}) => void;
   update${name.modelName}: (data: ${name.modelName}) => void;
   setSort: (field: string, asc: boolean) => void;
   setFilters: (filters: any[]) => void;
+  toggleSelection: (key: string) => void;
+  toggleAllSelection: (val: boolean) => void;
+  setDeletingMulti: (val: boolean) => void;
 };
 
 const ${name.modelName}Key = '_table_${name.modelKey}';
@@ -43,6 +48,8 @@ const initialState: ${meta.plural.capital}State = {
   editable${name.modelName}: null,
   formLoading: false,
   filters: [],
+  selectedItems: new Set(),
+  deletingMulti: false,
 };
 `;
 };

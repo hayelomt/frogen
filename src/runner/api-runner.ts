@@ -6,7 +6,7 @@ import { FormMeta } from '../utils/types';
 export const generateApi = async (meta: FormMeta) => {
   console.log('📊 Generating api\n'.cyan);
 
-  // await generateApiModelFile(meta);
+  await generateApiModelFile(meta);
   generateApiValidationFile(meta);
   generateApiControllerFile(meta);
 };

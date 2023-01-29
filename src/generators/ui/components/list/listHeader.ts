@@ -10,6 +10,23 @@ export const generateListHeader = (meta: FormMeta): string => {
   return `
         <thead>
           <tr>
+            <th
+              style={{
+                width: 25,
+              }}
+            >
+              <Checkbox
+                size="xs"
+                indeterminate={checkIndeterminate}
+                checked={checkSelected}
+                disabled={clients.length === 0 || deletingMulti}
+                onChange={() => {
+                  toggleAllSelection(
+                    checkIndeterminate || checkSelected ? false : true
+                  );
+                }}
+              />
+            </th>
 ${header}
             <th>Created at</th>
             <th>Updated at</th>

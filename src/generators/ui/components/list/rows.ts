@@ -24,6 +24,14 @@ export const generateRows = (meta: FormMeta): string => {
       key={item.id}
       style={{ cursor: 'pointer' }}
     >
+      <td style={{ width: 25 }}>
+        <Checkbox
+          checked={selectedItems.has(item.id)}
+          disabled={deletingMulti}
+          onChange={() => toggleSelection(item.id)}
+          size="xs"
+        />
+      </td>
       ${data}
       <td><DateDisplay date={item.created_at} /></td>
       <td><DateDisplay date={item.updated_at} /></td>
@@ -41,7 +49,7 @@ export const generateRows = (meta: FormMeta): string => {
             id={item.id}
             deleteUrl={\`${meta.api.endpoints.delete}/\${item.id}\`}
             onDeleted={() => {
-              remove${name.modelName}(item.id);
+              remove${meta.plural.capital}([item.id]);
             }}
           />`
       : ''

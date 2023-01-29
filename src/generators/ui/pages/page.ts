@@ -14,7 +14,9 @@ import TableFilter from '${corePrefix}core/ui/shared/TableFilter';
 import TableFooter from '${corePrefix}core/ui/shared/TableFooter';
 import ${name.modelName}Form from '../components/${name.modelName}Form';
 import ${name.modelName}List from '../components/${name.modelName}List';
-import { useLoad${meta.plural.capital} } from '../lib/hooks/useLoad${meta.plural.capital}';
+import { useLoad${meta.plural.capital} } from '../lib/hooks/useLoad${
+    meta.plural.capital
+  }';
 
 const ${name.modelName}Page = () => {
   const [formOpen, setFormOpen] = useState(false);
@@ -36,6 +38,10 @@ const ${name.modelName}Page = () => {
     tableFields,
     filters,
     setFilters,
+    selectedItems,
+    remove${meta.plural.capital},
+    setDeletingMulti,
+    toggleAllSelection,
   } = useLoad${meta.plural.capital}();
 
   return (
@@ -60,6 +66,17 @@ const ${name.modelName}Page = () => {
               currentField: tableMeta.sort_field,
               ascending: tableMeta.sort_op === 'asc',
               onApply: setSort,
+            }}
+            deleteProps={{
+              selectedIds: ${
+                meta.ui.modes.delete ? 'Array.from(selectedItems)' : '[]'
+              },
+              url: '${meta.api.endpoints.delete}/multi-delete',
+              onDeleteDone: (ids) => {
+                remove${meta.plural.capital}(ids);
+                toggleAllSelection(false);
+              },
+              onSetMultiDeleting: setDeletingMulti,
             }}
             filter={{ filters, onApply: setFilters }}
             onRefresh={handleFetch}

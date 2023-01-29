@@ -8,6 +8,7 @@
     "preserve": "npm run build",
     "watch": "tsc --watch",
     "dev": "nodemon --exec 'clear && node dist/index.js'",
+    "exec": "node dist/index.js",
     "devold": "cross-env NODE_ENV=development concurrently \"tsc --watch\" \"",
     "go": "tsc && node dist/index.js",
     "prestart": "npm run build",

@@ -36,19 +36,19 @@ const use${meta.plural.capital}State = create<${meta.plural.capital}State & ${me
     },
 
     setCurPage(val) {
-      set({ curPage: val });
+      set({ curPage: val, selectedItems: new Set() });
     },
 
     onSetRowsPerPage(val) {
       const updatedMeta = { ...get().tableMeta, limit: val };
-      set({ tableMeta: updatedMeta, curPage: 1 });
+      set({ tableMeta: updatedMeta, curPage: 1, selectedItems: new Set() });
       TableService.saveConfig(${name.modelName}Key, updatedMeta);
     },
 
-    remove${name.modelName}(id) {
+    remove${meta.plural.capital}(ids) {
       set({
-        ${meta.plural.model}: get().${meta.plural.model}.filter((i) => i.id !== id),
-        total: get().total - 1,
+        ${meta.plural.model}: get().${meta.plural.model}.filter((i) => !ids.includes(i.id)),
+        total: get().total - ids.length,
       });
     },
 
@@ -90,7 +90,29 @@ const use${meta.plural.capital}State = create<${meta.plural.capital}State & ${me
 
     setFilters(filters) {
       set({ filters })
-    }
+    },
+
+    toggleSelection(key) {
+      const selections = new Set(get().selectedItems);
+      if (selections.has(key)) {
+        selections.delete(key);
+      } else {
+        selections.add(key);
+      }
+      set({ selectedItems: selections });
+    },
+
+    toggleAllSelection(val) {
+      if (val) {
+        set({ selectedItems: new Set(get().${meta.plural.model}.map((i) => i.id)) });
+      } else {
+        set({ selectedItems: new Set() });
+      }
+    },
+
+    setDeletingMulti(val) {
+      set({ deletingMulti: val });
+    },
   })
 );
 `;

@@ -42,6 +42,10 @@ export const useLoad${meta.plural.capital} = () => {
     setSort,
     filters,
     setFilters,
+    selectedItems,
+    toggleAllSelection,
+    remove${meta.plural.capital},
+    setDeletingMulti,
   ] = use${meta.plural.capital}State(
     (state) => [
       state.${meta.plural.model},
@@ -58,6 +62,10 @@ export const useLoad${meta.plural.capital} = () => {
       state.setSort,
       state.filters,
       state.setFilters,
+      state.selectedItems,
+      state.toggleAllSelection,
+      state.remove${meta.plural.capital},
+      state.setDeletingMulti,
     ],
     shallow
   );
@@ -90,6 +98,10 @@ export const useLoad${meta.plural.capital} = () => {
     tableFields,
     filters,
     setFilters,
+    selectedItems,
+    toggleAllSelection,
+    remove${meta.plural.capital},
+    setDeletingMulti,
   };
 };
 
