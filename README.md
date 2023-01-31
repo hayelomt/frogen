@@ -15,6 +15,7 @@
 - [x] Delete item
 - [x] CUD configuration
 - [x] pagination
+- [x] table field show / hide
 - [x] sorting
 - [] filtering
 
