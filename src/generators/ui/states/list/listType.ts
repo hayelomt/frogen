@@ -1,8 +1,16 @@
 import { parseModelName } from '../../../../utils/text';
+import { getFieldList } from '../../../../utils/tools';
 import { FormMeta } from '../../../../utils/types';
 
 export const generateListType = (meta: FormMeta): string => {
   const name = parseModelName(meta.model);
+  const visibleFields = [
+    ...getFieldList(meta)
+      .filter((i) => !i.hideOnTable)
+      .map((i) => i.fieldName),
+    'created_at',
+    'updated_at',
+  ];
 
   return `
 type ${meta.plural.capital}State = {
@@ -17,6 +25,7 @@ type ${meta.plural.capital}State = {
   filters: any[];
   selectedItems: Set<string>;
   deletingMulti: boolean;
+  visibleColumns: Set<string>;
 };
 
 type ${meta.plural.capital}Action = {
@@ -34,6 +43,7 @@ type ${meta.plural.capital}Action = {
   toggleSelection: (key: string) => void;
   toggleAllSelection: (val: boolean) => void;
   setDeletingMulti: (val: boolean) => void;
+  toggleFieldVisibility: (field: string) => void;
 };
 
 const ${name.modelName}Key = '_table_${name.modelKey}';
@@ -50,6 +60,11 @@ const initialState: ${meta.plural.capital}State = {
   filters: [],
   selectedItems: new Set(),
   deletingMulti: false,
+  visibleColumns: new Set(
+    TableService.getSavedConfig(${
+      name.modelName
+    }Key).visibleFields || ${JSON.stringify(visibleFields)}
+  )
 };
 `;
 };

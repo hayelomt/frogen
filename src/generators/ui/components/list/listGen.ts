@@ -1,7 +1,6 @@
 import { parseModelName } from '../../../../utils/text';
-import { getCorePrefix } from '../../../../utils/tools';
+import { getCorePrefix, getFieldList } from '../../../../utils/tools';
 import { FormMeta } from '../../../../utils/types';
-import { generateListHeader } from './listHeader';
 import { generateRows } from './rows';
 
 export const generateListComponent = (
@@ -15,7 +14,13 @@ export const generateListComponent = (
     .reduce((a, b) => a.concat(b), [])
     .filter((i) => i.hideOnTable !== true);
   const importPreview = fields.map((i) => i.fileType).includes('image');
+  const importFilePreview =
+    fields.filter((i) => i.type === 'File' && i.fileType !== 'image').length >
+    0;
   const name = parseModelName(meta.model);
+  const visibleFields = getFieldList(meta).filter(
+    (i) => i.hideOnTable !== true
+  );
 
   return `import { ActionIcon, Checkbox, Group, Table } from '@mantine/core';
 import { IconEdit } from '@tabler/icons';
@@ -30,6 +35,11 @@ import { ${model.modelName} } from '../lib/models/${model.camelName}';
 ${
   importPreview
     ? `import ImagePreview from '${corePrefix}core/ui/shared/ImagePreview'`
+    : ''
+}
+${
+  importFilePreview
+    ? `import FilePreview from '${corePrefix}core/ui/shared/FilePreview'`
     : ''
 }
 import use${meta.plural.capital}State from '../lib/states/use${
@@ -51,6 +61,7 @@ const ${model.modelName}List = ({ ${meta.plural.model} }: ${
     toggleSelection,
     toggleAllSelection,
     deletingMulti,
+    visibleColumns,
   ] = use${meta.plural.capital}State(
     (state) => [
       ${meta.ui.modes.delete ? `state.remove${meta.plural.capital}` : ''}${
@@ -60,6 +71,7 @@ const ${model.modelName}List = ({ ${meta.plural.model} }: ${
       state.toggleSelection,
       state.toggleAllSelection,
       state.deletingMulti,
+      state.visibleColumns,
   ],
     shallow
   );
@@ -78,11 +90,58 @@ const ${model.modelName}List = ({ ${meta.plural.model} }: ${
   );
 
   ${generateRows(meta)}
+
+  const headers = useMemo(
+    () => (
+      <>
+      ${visibleFields
+        .map(
+          (i) => `{visibleColumns.has('${i.fieldName}') && <th>${i.label}</th>}`
+        )
+        .join('\n')}
+        {visibleColumns.has('created_at') && <th>Created at</th>}
+        {visibleColumns.has('updated_at') && <th>Updated at</th>}
+      </>
+    ),
+    [visibleColumns]
+  );
+
   return (
     <>
-      <Table highlightOnHover>${generateListHeader(meta)}
-        <tbody>{rows}</tbody>
-      </Table>
+
+      <div
+        style={{
+          overflowX: 'auto',
+          overflowY: 'hidden',
+        }}
+      >
+        <Table highlightOnHover>
+         <thead>
+          <tr>
+            <th
+              style={{
+                width: 25,
+              }}
+            >
+              <Checkbox
+                size="xs"
+                indeterminate={checkIndeterminate}
+                checked={checkSelected}
+                disabled={${meta.plural.model}.length === 0 || deletingMulti}
+                onChange={() => {
+                  toggleAllSelection(
+                    checkIndeterminate || checkSelected ? false : true
+                  );
+                }}
+              />
+            </th>
+            {headers}
+            <th style={{ maxWidth: '120px' }}></th>
+          </tr>
+        </thead>
+          <tbody>{rows}</tbody>
+        </Table>
+      </div>
     </>
   );
 };

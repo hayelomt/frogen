@@ -1,5 +1,5 @@
 import { parseModelName } from '../../../utils/text';
-import { FieldType, FormMeta } from '../../../utils/types';
+import { FieldType, FormMeta, FormMetaField } from '../../../utils/types';
 
 const getFieldInitializer = (field: FieldType) => {
   if (field === 'number') return '0';
@@ -14,14 +14,25 @@ export const getInitializer = (meta: FormMeta): string => {
   const name = parseModelName(meta.model);
   const spaces = '      ';
 
+  const getFieldVal = (field: FormMetaField) => {
+    if (field.type === 'bool') {
+      return `Boolean(${name.camelName}?.${field.fieldName})`;
+    }
+    if (field.type === 'date') {
+      return `${name.camelName}?.${field.fieldName} === null ? null : new Date(${name.camelName}!.${field.fieldName})`;
+    }
+
+    return `${name.camelName}?.${field.fieldName}`;
+  };
+
   return meta.fields
     .map((values) =>
       values
         .map(
           (field) =>
-            `${spaces}${field.fieldName}: ${name.camelName}?.${
-              field.fieldName
-            } || ${getFieldInitializer(field.type)},`
+            `${spaces}${field.fieldName}: ${getFieldVal(
+              field
+            )} || ${getFieldInitializer(field.type)},`
         )
         .join('\n')
     )

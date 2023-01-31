@@ -68,12 +68,14 @@ class ${name} extends Model implements HasMedia
  */
 export const generateApiModel = async (meta: FormMeta) => {
   const name = parseModelName(meta.model);
+  console.log(name.modelName);
   const res = await exec(
     `cd ${meta.api.baseFolderPath} && ${meta.api.phpCommand}  artisan make:model ${name.modelName} -m`
   );
 
   // Update generated schema with data
   const schema = generateSchema(meta);
+  console.log(res.stdout);
   const table = extractMigrationFile(res.stdout);
   //   const table = extractMigrationFile(`api Model created successfully.
   // Created Migration: 2023_01_26_050014_create_blogs_table`);

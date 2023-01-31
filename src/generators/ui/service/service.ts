@@ -2,12 +2,12 @@ import { parseModelName } from '../../../utils/text';
 import { getCorePrefix } from '../../../utils/tools';
 import { FormMeta } from '../../../utils/types';
 import { getInitializer } from './initializer';
-import { getRules } from './rules';
+// import { getRules } from './rules';
 
 export const generateService = (curDir: string, meta: FormMeta): string => {
   const name = parseModelName(meta.model);
   const initializer = getInitializer(meta);
-  const rules = getRules(meta);
+  // const rules = getRules(meta);
   const corePrefix = getCorePrefix(curDir, meta.ui.baseFolderPath);
 
   return `import { FormValidateInput } from '@mantine/form/lib/types';
@@ -37,7 +37,7 @@ ${initializer}
 
   validation: (mode: FormModes): FormValidateInput<${name.modelName}Dto | undefined> => {
     return {
-${rules}
+
     }
   }
 };

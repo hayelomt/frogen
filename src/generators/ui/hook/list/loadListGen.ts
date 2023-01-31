@@ -15,6 +15,13 @@ export const generateLoadListController = (
     'updated_at',
     'created_at',
   ];
+  const visibleFields = [
+    ...getFieldList(meta)
+      .filter((i) => !i.hideOnTable)
+      .map((i) => i.fieldName),
+    'updated_at',
+    'created_at',
+  ];
 
   return `
 import { useEffect } from 'react';
@@ -26,6 +33,7 @@ import use${meta.plural.capital}State from '../states/use${
 
 export const useLoad${meta.plural.capital} = () => {
   const tableFields = ${JSON.stringify(tableFields)};
+  const viewColumns = ${JSON.stringify(visibleFields)};
   const token = useToken();
   const [
     ${meta.plural.model},
@@ -46,6 +54,8 @@ export const useLoad${meta.plural.capital} = () => {
     toggleAllSelection,
     remove${meta.plural.capital},
     setDeletingMulti,
+    toggleFieldVisibility,
+    visibleColumns,
   ] = use${meta.plural.capital}State(
     (state) => [
       state.${meta.plural.model},
@@ -66,6 +76,8 @@ export const useLoad${meta.plural.capital} = () => {
       state.toggleAllSelection,
       state.remove${meta.plural.capital},
       state.setDeletingMulti,
+      state.toggleFieldVisibility,
+      state.visibleColumns,
     ],
     shallow
   );
@@ -96,12 +108,15 @@ export const useLoad${meta.plural.capital} = () => {
     formLoading,
     setSort,
     tableFields,
+    viewColumns,
     filters,
     setFilters,
     selectedItems,
     toggleAllSelection,
     remove${meta.plural.capital},
     setDeletingMulti,
+    toggleFieldVisibility,
+    visibleColumns,
   };
 };
 

@@ -14,7 +14,7 @@ export const models: Record<string, FormMeta> = {
         delete: true,
         update: true,
       },
-      parentFolder: 'meta',
+      parentFolder: '',
       baseFolderPath:
         '/media/ht/OS/Users/DeLL/Documents/Projects/mad/pragma/prgama-admin',
     },
@@ -136,6 +136,94 @@ export const models: Record<string, FormMeta> = {
       //     fieldName: 'cv',
       //   },
       // ],
+    ],
+  },
+
+  press: {
+    model: 'press',
+    plural: {
+      label: 'Press',
+      model: 'press',
+      capital: 'Press',
+    },
+    ui: {
+      modes: {
+        create: true,
+        delete: true,
+        update: true,
+      },
+      parentFolder: '',
+      baseFolderPath:
+        '/media/ht/OS/Users/DeLL/Documents/Projects/mad/pragma/prgama-admin',
+    },
+    api: {
+      baseFolderPath:
+        '/media/ht/OS/Users/DeLL/Documents/Projects/mad/pragma/pragma-api',
+      controllerMode: 'multi',
+      phpCommand: '/opt/lampp/bin/php',
+      endpoints: {
+        create: 'auth-pragma23/press',
+        delete: 'auth-pragma23/press',
+        update: 'auth-pragma23/press',
+        read: 'press',
+      },
+    },
+    fields: [
+      [
+        {
+          type: 'varchar',
+          label: 'Title',
+          fieldName: 'title',
+        },
+        {
+          type: 'varchar',
+          label: 'Category',
+          fieldName: 'category',
+        },
+      ],
+      [
+        {
+          type: 'text',
+          label: 'Preview Text',
+          fieldName: 'preview_text',
+        },
+      ],
+      [
+        {
+          type: 'date',
+          label: 'Publish Date',
+          fieldName: 'publish_date',
+        },
+        {
+          type: 'bool',
+          label: 'Featured',
+          fieldName: 'featured',
+        },
+      ],
+      [
+        {
+          type: 'File',
+          label: 'Image',
+          fieldName: 'image',
+          fileType: 'image',
+          collectionName: 'images',
+        },
+      ],
+      [
+        {
+          type: 'File',
+          label: 'Video',
+          fieldName: 'video',
+          collectionName: 'files',
+        },
+      ],
+      [
+        {
+          type: 'bool',
+          label: 'Archived',
+          fieldName: 'archived',
+        },
+      ],
     ],
   },
 };

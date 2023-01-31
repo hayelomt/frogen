@@ -36,12 +36,15 @@ const ${name.modelName}Page = () => {
     formLoading,
     setSort,
     tableFields,
+    viewColumns,
     filters,
     setFilters,
     selectedItems,
     remove${meta.plural.capital},
     setDeletingMulti,
     toggleAllSelection,
+    toggleFieldVisibility,
+    visibleColumns,
   } = useLoad${meta.plural.capital}();
 
   return (
@@ -49,7 +52,7 @@ const ${name.modelName}Page = () => {
       <Layout>
         <Box sx={{ position: 'relative', height: '100%' }} px="sm">
           <Group py="md" mb="sm" position="apart">
-            <Text size="xl">${name.modelName}s</Text>
+            <Text size="xl">${meta.plural.label}</Text>
 
             <Button
               variant="subtle"
@@ -66,6 +69,11 @@ const ${name.modelName}Page = () => {
               currentField: tableMeta.sort_field,
               ascending: tableMeta.sort_op === 'asc',
               onApply: setSort,
+            }}
+            settings={{
+              toggleField: toggleFieldVisibility,
+              visibleFields: visibleColumns,
+              columns: viewColumns,
             }}
             deleteProps={{
               selectedIds: ${

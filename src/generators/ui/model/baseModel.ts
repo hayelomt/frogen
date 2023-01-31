@@ -2,7 +2,10 @@ import { parseModelName } from '../../../utils/text';
 import { getCorePrefix, hasImage } from '../../../utils/tools';
 import { FormMeta, FormMetaField, ModelFieldType } from '../../../utils/types';
 
-const parseModelFieldType = ({ type }: FormMetaField): ModelFieldType => {
+const parseModelFieldType = (
+  { type }: FormMetaField,
+  mode: 'model' | 'dto'
+): ModelFieldType => {
   if (type === 'number') {
     return 'number';
   }
@@ -13,7 +16,7 @@ const parseModelFieldType = ({ type }: FormMetaField): ModelFieldType => {
     return 'boolean';
   }
   if (type === 'date') {
-    return 'Date | null';
+    return mode === 'model' ? 'string' : 'Date | null';
   }
 
   return 'string';
@@ -24,14 +27,26 @@ export const generateBaseModel = (curDir: string, meta: FormMeta) => {
   const parsedName = parseModelName(meta.model);
   const spaces = '  ';
 
-  const parsedMeta = meta.fields
+  const parsedMetaDto = meta.fields
     .map((itemRows) =>
       itemRows
         .map(
           (field) =>
             `${spaces}${field.fieldName}${
               field.optional ? '?' : ''
-            }: ${parseModelFieldType(field)};`
+            }: ${parseModelFieldType(field, 'dto')};`
+        )
+        .join('\n')
+    )
+    .join('\n');
+  const parsedMetaModel = meta.fields
+    .map((itemRows) =>
+      itemRows
+        .map(
+          (field) =>
+            `${spaces}${field.fieldName}${
+              field.optional ? '?' : ''
+            }: ${parseModelFieldType(field, 'model')};`
         )
         .join('\n')
     )
@@ -42,11 +57,11 @@ export const generateBaseModel = (curDir: string, meta: FormMeta) => {
   } } from '${corePrefix}core/util/types';
 
 export type ${parsedName.modelName}Dto = {
-${parsedMeta}
+${parsedMetaDto}
 }
 
 export type ${parsedName.modelName} = {
-${parsedMeta}
+${parsedMetaModel}
 ${hasImage(meta) ? '  media: Media[]' : ''}
 } & BaseResponseModel; 
 `;

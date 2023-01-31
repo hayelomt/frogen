@@ -1,12 +1,19 @@
 import { parseModelName } from '../../../../utils/text';
+import { getFieldList } from '../../../../utils/tools';
 import { FormMeta } from '../../../../utils/types';
 
 export const generateFormDataCreator = (meta: FormMeta): string => {
   const name = parseModelName(meta.model);
+  const fields = getFieldList(meta);
+  const dateFields = fields
+    .filter((i) => i.type === 'date')
+    .map((i) => i.fieldName);
 
   return `
   const create${name.modelName} = async (payload: ${name.modelName}Dto) => {
-    const parsedPayload = FormParser.init(payload).data;
+    const parsedPayload = FormParser.init(payload).parseDateFields(${JSON.stringify(
+      dateFields
+    )}).data;
     const formData = FormService.parseFormData(parsedPayload);
     const { data, error, mode } = await upload<${name.modelName}>(
       '${meta.api.endpoints.create}',
@@ -31,10 +38,16 @@ export const generateFormDataCreator = (meta: FormMeta): string => {
 
 export const generateDataCreator = (meta: FormMeta): string => {
   const name = parseModelName(meta.model);
+  const fields = getFieldList(meta);
+  const dateFields = fields
+    .filter((i) => i.type === 'date')
+    .map((i) => i.fieldName);
 
   return `
   const create${name.modelName} = async (payload: ${name.modelName}Dto) => {
-    const parsedPayload = FormParser.init(payload).data;
+    const parsedPayload = FormParser.init(payload).parseDateFields(${JSON.stringify(
+      dateFields
+    )}).data;
     const { data, error, mode } = await sendData<${name.modelName}>(
       '${meta.api.endpoints.create}',
       {

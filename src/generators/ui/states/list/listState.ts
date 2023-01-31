@@ -113,6 +113,17 @@ const use${meta.plural.capital}State = create<${meta.plural.capital}State & ${me
     setDeletingMulti(val) {
       set({ deletingMulti: val });
     },
+
+    toggleFieldVisibility(field: string) {
+      const columns = new Set([...get().visibleColumns]);
+      columns.has(field) ? columns.delete(field) : columns.add(field);
+
+      set({ visibleColumns: columns })
+      TableService.saveConfig(${name.modelName}Key, {
+        ...get().tableMeta,
+        visibleFields: Array.from(columns),
+      });
+    }
   })
 );
 `;
