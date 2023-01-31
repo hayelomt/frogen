@@ -68,6 +68,6 @@ ${data}
         </Group>
       </td>
     </tr>
-  )), [visibleColumns, ${meta.plural.model}])
+  )), [visibleColumns, ${meta.plural.model}, selectedItems])
   `;
 };

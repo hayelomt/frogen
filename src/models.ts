@@ -226,4 +226,43 @@ export const models: Record<string, FormMeta> = {
       ],
     ],
   },
+  subscription: {
+    model: 'subscription',
+    plural: {
+      label: 'Subscription',
+      model: 'subscription',
+      capital: 'Subscription',
+    },
+    ui: {
+      modes: {
+        create: false,
+        delete: true,
+        update: false,
+      },
+      parentFolder: '',
+      baseFolderPath:
+        '/media/ht/OS/Users/DeLL/Documents/Projects/mad/pragma/prgama-admin',
+    },
+    api: {
+      baseFolderPath:
+        '/media/ht/OS/Users/DeLL/Documents/Projects/mad/pragma/pragma-api',
+      controllerMode: 'multi',
+      phpCommand: '/opt/lampp/bin/php',
+      endpoints: {
+        create: 'subscription',
+        delete: 'auth-pragma23/subscriptions',
+        update: 'auth-pragma23/subscriptions',
+        read: 'auth-pragma23/subscriptions',
+      },
+    },
+    fields: [
+      [
+        {
+          type: 'varchar',
+          label: 'Email',
+          fieldName: 'email',
+        },
+      ],
+    ],
+  },
 };

@@ -54,9 +54,8 @@ const ${model.modelName}List = ({ ${meta.plural.model} }: ${
     model.modelName
   }ListProps) => {
   const [
-    ${meta.ui.modes.delete ? `remove${meta.plural.capital}` : ''}${
-    meta.ui.modes.delete && meta.ui.modes.update && ', '
-  }${meta.ui.modes.update ? `setEdit${name.modelName},` : ''}
+    remove${meta.plural.capital},
+    setEditable${name.modelName},
     selectedItems,
     toggleSelection,
     toggleAllSelection,
@@ -64,9 +63,8 @@ const ${model.modelName}List = ({ ${meta.plural.model} }: ${
     visibleColumns,
   ] = use${meta.plural.capital}State(
     (state) => [
-      ${meta.ui.modes.delete ? `state.remove${meta.plural.capital}` : ''}${
-    meta.ui.modes.delete && meta.ui.modes.update && ', '
-  }${meta.ui.modes.update ? `state.setEditable${name.modelName},` : ''}
+      state.remove${meta.plural.capital},
+      state.setEditable${name.modelName},
       state.selectedItems,
       state.toggleSelection,
       state.toggleAllSelection,

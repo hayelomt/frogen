@@ -7,8 +7,8 @@ console.log('🚀 Started template generation...\n');
 
 // Start Runner
 (async () => {
-  generateUi(models.client);
-  // await generateApi(models.press);
+  generateUi(models.subscription);
+  // await generateApi(models.subscription);
 
   console.log('🚀 FINISHED 🚀');
 })();

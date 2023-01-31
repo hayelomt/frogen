@@ -11,8 +11,11 @@ import { IconPlus } from '@tabler/icons';
 import { useState } from 'react';
 import Layout from '${corePrefix}core/ui/layout/Layout';
 import TableFilter from '${corePrefix}core/ui/shared/TableFilter';
-import TableFooter from '${corePrefix}core/ui/shared/TableFooter';
-import ${name.modelName}Form from '../components/${name.modelName}Form';
+import TableFooter from '${corePrefix}core/ui/shared/TableFooter';${
+    meta.ui.modes.create &&
+    `
+import ${name.modelName}Form from '../components/${name.modelName}Form';`
+  }
 import ${name.modelName}List from '../components/${name.modelName}List';
 import { useLoad${meta.plural.capital} } from '../lib/hooks/useLoad${
     meta.plural.capital
@@ -54,13 +57,17 @@ const ${name.modelName}Page = () => {
           <Group py="md" mb="sm" position="apart">
             <Text size="xl">${meta.plural.label}</Text>
 
-            <Button
+            ${
+              meta.ui.modes.create
+                ? `<Button
               variant="subtle"
               leftIcon={<IconPlus size={15} />}
               onClick={() => setFormOpen(true)}
             >
               Add ${name.modelName}
-            </Button>
+            </Button>`
+                : ''
+            }
           </Group>
 
           <TableFilter
@@ -103,8 +110,9 @@ const ${name.modelName}Page = () => {
             onSetRowsPerPage={onSetRowsPerPage}
           />
         </Box>
-
-        <Drawer
+          ${
+            meta.ui.modes.create || meta.ui.modes.update
+              ? `<Drawer
           opened={formOpen || edit${name.modelName} !== null}
           onClose={() => {
             if (!formLoading) {
@@ -120,8 +128,9 @@ const ${name.modelName}Page = () => {
           {Boolean(formOpen || edit${name.modelName} !== null) && (
             <${name.modelName}Form onClose={() => setFormOpen(false)} />
           )}
-        </Drawer>
-        
+        </Drawer>`
+              : ''
+          }
       </Layout>
     </>
   );
