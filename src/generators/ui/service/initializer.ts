@@ -19,7 +19,7 @@ export const getInitializer = (meta: FormMeta): string => {
       return `Boolean(${name.camelName}?.${field.fieldName})`;
     }
     if (field.type === 'date') {
-      return `${name.camelName}?.${field.fieldName} === null ? null : new Date(${name.camelName}!.${field.fieldName})`;
+      return `${name.camelName}?.${field.fieldName} ? new Date(${name.camelName}!.${field.fieldName}) : null`;
     }
 
     return `${name.camelName}?.${field.fieldName}`;

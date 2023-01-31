@@ -50,7 +50,7 @@ ${data}
         <Group spacing={4}>
           ${
             meta.ui.modes.update
-              ? `<ActionIcon radius="xs" onClick={() => setEdit${name.modelName}(item)}>
+              ? `<ActionIcon radius="xs" onClick={() => setEditable${name.modelName}(item)}>
             <IconEdit size={16} />
           </ActionIcon>`
               : ''
