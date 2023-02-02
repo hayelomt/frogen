@@ -64,7 +64,7 @@ const ${name.modelName}Page = () => {
               leftIcon={<IconPlus size={15} />}
               onClick={() => setFormOpen(true)}
             >
-              Add ${name.modelName}
+              Add ${name.label}
             </Button>`
                 : ''
             }

@@ -46,9 +46,13 @@ const use${meta.plural.capital}State = create<${meta.plural.capital}State & ${me
     },
 
     remove${meta.plural.capital}(ids) {
+      const selections = new Set(get().selectedItems);
+      ids.forEach((id) => selections.delete(id));
+
       set({
         ${meta.plural.model}: get().${meta.plural.model}.filter((i) => !ids.includes(i.id)),
         total: get().total - ids.length,
+        selectedItems: selections,
       });
     },
 
